@@ -13,7 +13,10 @@
     <string name="title_detail">Detail Movies</string>
     <string name="title_share">Share the movie now</string>
     <string name="share">Hello, I have a movie recommendation, you can click on the link %s</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="favorite">Favorite</string>
 
 </resources>

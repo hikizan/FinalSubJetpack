@@ -1,9 +1,9 @@
 package com.hikizan.myapplication.ui.favorite;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
-
-import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
 import com.hikizan.myapplication.R;
@@ -26,4 +26,5 @@ public class FavoriteActivity extends AppCompatActivity {
             getSupportActionBar().setElevation(0);
         }
     }
+
 }

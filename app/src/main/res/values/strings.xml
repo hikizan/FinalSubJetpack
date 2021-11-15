@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Movie List</string>
+    <string name="movies">Movies</string>
+    <string name="tvshows">Tv Shows</string>
+    <string name="title">Title</string>
+    <string name="dateRelease">Date Release</string>
+    <string name="desc_img">Image Movies or Tv Shows</string>
+    <string name="rating">Rating</string>
+    <string name="userScore">%s User Score</string>
+    <string name="duration">Duration</string>
+    <string name="genre">Genre</string>
+    <string name="overview">Overview</string>
+    <string name="title_detail">Detail Movies</string>
+    <string name="title_share">Share the movie now</string>
+    <string name="share">Hello, I have a movie recommendation, you can click on the link %s</string>
+
+</resources>

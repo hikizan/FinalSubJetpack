@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity
@@ -44,7 +45,25 @@ public class FavoriteMovie implements Parcelable {
     @ColumnInfo(name = "image")
     private String image;
 
-    protected FavoriteMovie(Parcel in) {
+    @Ignore
+    public FavoriteMovie(){
+
+    }
+
+    public FavoriteMovie(String IDMovieDB, String title, String dateRelease, String rating, String userScore, String genre, String overview, String duration, String url, String image) {
+        this.IDMovieDB = IDMovieDB;
+        this.title = title;
+        this.dateRelease = dateRelease;
+        this.rating = rating;
+        this.userScore = userScore;
+        this.genre = genre;
+        this.overview = overview;
+        this.duration = duration;
+        this.url = url;
+        this.image = image;
+    }
+
+    private FavoriteMovie(Parcel in) {
         id = in.readInt();
         IDMovieDB = in.readString();
         title = in.readString();

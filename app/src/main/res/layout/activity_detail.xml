@@ -41,7 +41,7 @@
         app:fabSize="normal"
         app:layout_anchor="@id/ns_content"
         app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@drawable/ic_unfavorite"
+        app:srcCompat="@drawable/ic_addfavorite"
         android:contentDescription="@string/button_add_or_unfavorite" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

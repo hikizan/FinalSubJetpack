@@ -1,5 +1,6 @@
 package com.hikizan.myapplication.ui.detail;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -8,10 +9,12 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.hikizan.myapplication.model.source.local.entity.MovieDbModel;
 import com.hikizan.myapplication.R;
 import com.hikizan.myapplication.viewmodel.DetailViewModel;
@@ -29,6 +32,9 @@ public class DetailActivity extends AppCompatActivity {
     private TextView txtDuration;
     private ImageView img;
     private ProgressBar progressBar;
+    private FloatingActionButton fabFavorite;
+
+    private Boolean isFavorite = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +86,7 @@ public class DetailActivity extends AppCompatActivity {
         txtOverview = findViewById(R.id.tv_detail_overview);
         txtDuration = findViewById(R.id.tv_detail_duration);
         img = findViewById(R.id.tv_detail_image);
+        fabFavorite = findViewById(R.id.fab_favorite);
     }
 
     private void setData(MovieDbModel movie) {
@@ -98,5 +105,21 @@ public class DetailActivity extends AppCompatActivity {
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_baseline_refresh_24)
                         .error(R.drawable.ic_baseline_broken_image_24))
                 .into(img);
+    }
+
+    private void setFabFav(Boolean isFav) {
+        Drawable fabIsFav = ContextCompat.getDrawable(this, R.drawable.ic_addfavorite);
+        Drawable fabNoFav = ContextCompat.getDrawable(this, R.drawable.ic_unfavorite);
+
+        if (isFav) {
+            fabFavorite.setImageDrawable(fabIsFav);
+        } else {
+            fabFavorite.setImageDrawable(fabNoFav);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

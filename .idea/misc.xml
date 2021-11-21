@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/College/Semester7/SIB_DicodingXKampusMerdeka_(PengembangAplikasiAndroid)/project_program/AndroidJetpack/FinalSubJetpack/app/src/main/res/drawable/ic_addfavorite.xml" value="0.23055555555555557" />
+        <entry key="..\:/College/Semester7/SIB_DicodingXKampusMerdeka_(PengembangAplikasiAndroid)/project_program/AndroidJetpack/FinalSubJetpack/app/src/main/res/drawable/ic_baseline_broken_image_24.xml" value="0.17962962962962964" />
+        <entry key="..\:/College/Semester7/SIB_DicodingXKampusMerdeka_(PengembangAplikasiAndroid)/project_program/AndroidJetpack/FinalSubJetpack/app/src/main/res/drawable/ic_baseline_refresh_24.xml" value="0.17962962962962964" />
         <entry key="..\:/College/Semester7/SIB_DicodingXKampusMerdeka_(PengembangAplikasiAndroid)/project_program/AndroidJetpack/FinalSubJetpack/app/src/main/res/drawable/ic_menu_favorite.xml" value="0.14907407407407408" />
         <entry key="..\:/College/Semester7/SIB_DicodingXKampusMerdeka_(PengembangAplikasiAndroid)/project_program/AndroidJetpack/FinalSubJetpack/app/src/main/res/drawable/ic_nofavorite.xml" value="0.23055555555555557" />
         <entry key="..\:/College/Semester7/SIB_DicodingXKampusMerdeka_(PengembangAplikasiAndroid)/project_program/AndroidJetpack/FinalSubJetpack/app/src/main/res/layout/activity_detail.xml" value="0.25" />
@@ -13,6 +15,7 @@
         <entry key="..\:/College/Semester7/SIB_DicodingXKampusMerdeka_(PengembangAplikasiAndroid)/project_program/AndroidJetpack/FinalSubJetpack/app/src/main/res/layout/fragment_movies.xml" value="0.353125" />
         <entry key="..\:/College/Semester7/SIB_DicodingXKampusMerdeka_(PengembangAplikasiAndroid)/project_program/AndroidJetpack/FinalSubJetpack/app/src/main/res/layout/fragment_movies_favorite.xml" value="0.25" />
         <entry key="..\:/College/Semester7/SIB_DicodingXKampusMerdeka_(PengembangAplikasiAndroid)/project_program/AndroidJetpack/FinalSubJetpack/app/src/main/res/layout/fragment_tvshows_favorite.xml" value="0.25" />
+        <entry key="..\:/College/Semester7/SIB_DicodingXKampusMerdeka_(PengembangAplikasiAndroid)/project_program/AndroidJetpack/FinalSubJetpack/app/src/main/res/layout/item_row.xml" value="0.353125" />
         <entry key="..\:/College/Semester7/SIB_DicodingXKampusMerdeka_(PengembangAplikasiAndroid)/project_program/AndroidJetpack/FinalSubJetpack/app/src/main/res/menu/option_menu.xml" value="0.2" />
         <entry key="..\:/College/Semester7/SIB_DicodingXKampusMerdeka_(PengembangAplikasiAndroid)/project_program/AndroidJetpack/Jetpack2/app/src/main/res/layout/activity_detail.xml" value="0.353125" />
         <entry key="..\:/College/Semester7/SIB_DicodingXKampusMerdeka_(PengembangAplikasiAndroid)/project_program/AndroidJetpack/Jetpack2/app/src/main/res/layout/fragment_movies.xml" value="0.353125" />

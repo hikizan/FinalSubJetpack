@@ -31,7 +31,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         this.callback = callback;
     }
 
-    void setListFavoriteMovie(List<FavoriteMovie> listFavoriteMovie) {
+    public void setListFavoriteMovie(List<FavoriteMovie> listFavoriteMovie) {
         final FavoriteDiffCallback diffCallback = new FavoriteDiffCallback(this.listFavoriteMovie, listFavoriteMovie);
         final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
 

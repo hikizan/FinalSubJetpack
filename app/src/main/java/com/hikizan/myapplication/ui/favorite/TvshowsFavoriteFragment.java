@@ -5,8 +5,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ShareCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -54,24 +56,41 @@ public class TvshowsFavoriteFragment extends Fragment implements FavoriteMovieCl
             FavoriteViewModelFactory mfactory = FavoriteViewModelFactory.getInstance(getActivity().getApplication());
             FavoriteViewModel viewModel = new ViewModelProvider(getActivity(), mfactory).get(FavoriteViewModel.class);
 
-            //favoriteViewModel = obtainFavoriteViewModel(getActivity().getApplication());
+            //favoriteViewModel = obtainFavoriteViewModel(getActivity());
 
-
-            FavoriteAdapter favoriteMovieAdapter = new FavoriteAdapter(this);
+            FavoriteAdapter favoriteTvShowsAdapter = new FavoriteAdapter(this);
 
             progressBar.setVisibility(View.VISIBLE);
+            viewModel.getAllTvShows().observe(getViewLifecycleOwner(), favoriteMovies -> {
+                progressBar.setVisibility(View.GONE);
+                favoriteTvShowsAdapter.setListFavoriteMovie(favoriteMovies);
+                favoriteTvShowsAdapter.notifyDataSetChanged();
+            });
 
+            rvTvShowsFavorite.setLayoutManager(new LinearLayoutManager(getContext()));
+            rvTvShowsFavorite.setHasFixedSize(true);
+            rvTvShowsFavorite.setAdapter(favoriteTvShowsAdapter);
         }
     }
 
     @Override
     public void onShareClick(FavoriteMovie filmEntity) {
-
+        if (getActivity() != null){
+            String mimeType = "text/plain";
+            ShareCompat.IntentBuilder
+                    .from(getActivity())
+                    .setType(mimeType)
+                    .setChooserTitle(R.string.title_share)
+                    .setText(getString(R.string.share, filmEntity.getUrl()))
+                    .startChooser();
+        }
     }
 
+    /*
     @NonNull
     private static FavoriteViewModel obtainFavoriteViewModel(AppCompatActivity activity) {
         FavoriteViewModelFactory mfactory = FavoriteViewModelFactory.getInstance(activity.getApplication());
         return new ViewModelProvider(activity, mfactory).get(FavoriteViewModel.class);
     }
+     */
 }

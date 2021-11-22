@@ -17,11 +17,11 @@ public class FavoriteViewModel extends ViewModel {
         mFavoriteMovieRepository = new FavoriteMovieRepository(application);
     }
 
-    LiveData<List<FavoriteMovie>> getAllMovies() {
+    public LiveData<List<FavoriteMovie>> getAllMovies() {
         return mFavoriteMovieRepository.getAllMovies();
     }
 
-    LiveData<List<FavoriteMovie>> getAllTvShows() {
+    public LiveData<List<FavoriteMovie>> getAllTvShows() {
         return mFavoriteMovieRepository.getAllTvShows();
     }
 }

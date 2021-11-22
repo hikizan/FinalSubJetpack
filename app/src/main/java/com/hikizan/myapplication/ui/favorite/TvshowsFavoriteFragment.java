@@ -36,7 +36,6 @@ public class TvshowsFavoriteFragment extends Fragment implements FavoriteMovieCl
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_tvshows_favorite, container, false);
     }
 
@@ -55,8 +54,6 @@ public class TvshowsFavoriteFragment extends Fragment implements FavoriteMovieCl
 
             FavoriteViewModelFactory mfactory = FavoriteViewModelFactory.getInstance(getActivity().getApplication());
             FavoriteViewModel viewModel = new ViewModelProvider(getActivity(), mfactory).get(FavoriteViewModel.class);
-
-            //favoriteViewModel = obtainFavoriteViewModel(getActivity());
 
             FavoriteAdapter favoriteTvShowsAdapter = new FavoriteAdapter(this);
 
@@ -86,11 +83,4 @@ public class TvshowsFavoriteFragment extends Fragment implements FavoriteMovieCl
         }
     }
 
-    /*
-    @NonNull
-    private static FavoriteViewModel obtainFavoriteViewModel(AppCompatActivity activity) {
-        FavoriteViewModelFactory mfactory = FavoriteViewModelFactory.getInstance(activity.getApplication());
-        return new ViewModelProvider(activity, mfactory).get(FavoriteViewModel.class);
-    }
-     */
 }

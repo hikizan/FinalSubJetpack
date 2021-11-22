@@ -50,4 +50,9 @@ dependencies {
 
     implementation 'com.github.florent37:arclayout:1.0.0'
     implementation 'com.flaviofaria:kenburnsview:1.0.7'
+
+    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.4.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata:2.4.0'
+    implementation 'androidx.room:room-runtime:2.3.0'
+    annotationProcessor 'androidx.room:room-compiler:2.3.0'
 }

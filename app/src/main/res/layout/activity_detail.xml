@@ -22,6 +22,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/ns_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -29,5 +30,18 @@
         <include layout="@layout/content_detail" />
 
     </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimary"
+        android:layout_margin="16dp"
+        android:foregroundGravity="bottom"
+        app:fabSize="normal"
+        app:layout_anchor="@id/ns_content"
+        app:layout_anchorGravity="bottom|end"
+        app:srcCompat="@drawable/ic_addfavorite"
+        android:contentDescription="@string/button_add_or_unfavorite" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

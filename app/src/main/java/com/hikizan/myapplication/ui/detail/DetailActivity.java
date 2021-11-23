@@ -64,6 +64,8 @@ public class DetailActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
 
+        fabFavorite.setVisibility(View.GONE);
+
         if (extras != null) {
             String moviesID = extras.getString(EX_MOVIES);
             if (moviesID != null) {
@@ -75,7 +77,7 @@ public class DetailActivity extends AppCompatActivity {
                     detailViewModel.getDetailMovies("0").observe(this, movie -> {
                         progressBar.setVisibility(View.GONE);
                         setData(movie);
-
+                        fabFavorite.setVisibility(View.VISIBLE);
 
                         Log.d("DetailActivity", "onCreate: movieID = m; fromMovieDb = "+fromMovieDb);
                     });
@@ -83,7 +85,7 @@ public class DetailActivity extends AppCompatActivity {
                     detailViewModel.getDetailMovies("1").observe(this, movie -> {
                         progressBar.setVisibility(View.GONE);
                         setData(movie);
-
+                        fabFavorite.setVisibility(View.VISIBLE);
 
                     });
 

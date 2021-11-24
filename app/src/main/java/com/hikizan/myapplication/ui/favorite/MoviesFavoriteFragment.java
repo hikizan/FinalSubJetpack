@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 
 import com.hikizan.myapplication.R;
 import com.hikizan.myapplication.adapter.FavoriteAdapter;
+import com.hikizan.myapplication.adapter.FavoritePagedListAdapter;
 import com.hikizan.myapplication.callback.FavoriteMovieClickCallback;
 import com.hikizan.myapplication.database.FavoriteMovie;
 import com.hikizan.myapplication.viewmodel.FavoriteViewModel;
@@ -52,18 +53,20 @@ public class MoviesFavoriteFragment extends Fragment implements FavoriteMovieCli
             FavoriteViewModelFactory mfactory = FavoriteViewModelFactory.getInstance(getActivity().getApplication());
             FavoriteViewModel viewModel = new ViewModelProvider(getActivity(), mfactory).get(FavoriteViewModel.class);
 
-            FavoriteAdapter favoriteMoviesAdapter = new FavoriteAdapter(this);
+            //FavoriteAdapter favoriteMoviesAdapter = new FavoriteAdapter(this);
+            FavoritePagedListAdapter favoritePagedListAdapter = new FavoritePagedListAdapter(getActivity(), this);
+
 
             progressBar.setVisibility(View.VISIBLE);
             viewModel.getAllMovies().observe(getViewLifecycleOwner(), favoriteMovies -> {
                 progressBar.setVisibility(View.GONE);
-                favoriteMoviesAdapter.setListFavoriteMovie(favoriteMovies);
-                favoriteMoviesAdapter.notifyDataSetChanged();
+                favoritePagedListAdapter.submitList(favoriteMovies);
+                favoritePagedListAdapter.notifyDataSetChanged();
             });
 
             rvMoviesFavorite.setLayoutManager(new LinearLayoutManager(getContext()));
             rvMoviesFavorite.setHasFixedSize(true);
-            rvMoviesFavorite.setAdapter(favoriteMoviesAdapter);
+            rvMoviesFavorite.setAdapter(favoritePagedListAdapter);
         }
     }
 

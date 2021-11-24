@@ -4,6 +4,8 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.paging.LivePagedListBuilder;
+import androidx.paging.PagedList;
 
 import com.hikizan.myapplication.database.FavoriteMovie;
 import com.hikizan.myapplication.repository.FavoriteMovieRepository;
@@ -17,8 +19,10 @@ public class FavoriteViewModel extends ViewModel {
         mFavoriteMovieRepository = new FavoriteMovieRepository(application);
     }
 
-    public LiveData<List<FavoriteMovie>> getAllMovies() {
-        return mFavoriteMovieRepository.getAllMovies();
+    //public LiveData<List<FavoriteMovie>> getAllMovies() {
+    public LiveData<PagedList<FavoriteMovie>> getAllMovies() {
+        //return mFavoriteMovieRepository.getAllMovies();
+        return new LivePagedListBuilder<>(mFavoriteMovieRepository.getAllMovies(), 3).build();
     }
 
     public LiveData<List<FavoriteMovie>> getAllTvShows() {

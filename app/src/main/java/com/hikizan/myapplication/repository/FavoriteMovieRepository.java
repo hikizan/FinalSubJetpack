@@ -3,6 +3,7 @@ package com.hikizan.myapplication.repository;
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
+import androidx.paging.DataSource;
 
 import com.hikizan.myapplication.database.FavoriteMovie;
 import com.hikizan.myapplication.database.FavoriteMovieDao;
@@ -23,7 +24,8 @@ public class FavoriteMovieRepository {
         mFavoriteMovieDao = db.favoriteMovieDao();
     }
 
-    public LiveData<List<FavoriteMovie>> getAllMovies() {
+    //public LiveData<List<FavoriteMovie>> getAllMovies() {
+    public DataSource.Factory<Integer, FavoriteMovie> getAllMovies() {
         return mFavoriteMovieDao.getAllMovies();
     }
 

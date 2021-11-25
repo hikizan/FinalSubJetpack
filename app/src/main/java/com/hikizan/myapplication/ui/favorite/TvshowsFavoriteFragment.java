@@ -1,26 +1,23 @@
 package com.hikizan.myapplication.ui.favorite;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ShareCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
-
 import com.hikizan.myapplication.R;
-import com.hikizan.myapplication.adapter.FavoriteAdapter;
+import com.hikizan.myapplication.adapter.FavoritePagedListAdapter;
 import com.hikizan.myapplication.callback.FavoriteMovieClickCallback;
 import com.hikizan.myapplication.database.FavoriteMovie;
-import com.hikizan.myapplication.viewmodel.DetailFavoriteViewModel;
 import com.hikizan.myapplication.viewmodel.FavoriteViewModel;
 import com.hikizan.myapplication.viewmodel.FavoriteViewModelFactory;
 
@@ -28,7 +25,6 @@ public class TvshowsFavoriteFragment extends Fragment implements FavoriteMovieCl
 
     private RecyclerView rvTvShowsFavorite;
     private ProgressBar progressBar;
-    private FavoriteViewModel favoriteViewModel;
 
     public TvshowsFavoriteFragment(){
     }
@@ -55,18 +51,17 @@ public class TvshowsFavoriteFragment extends Fragment implements FavoriteMovieCl
             FavoriteViewModelFactory mfactory = FavoriteViewModelFactory.getInstance(getActivity().getApplication());
             FavoriteViewModel viewModel = new ViewModelProvider(getActivity(), mfactory).get(FavoriteViewModel.class);
 
-            FavoriteAdapter favoriteTvShowsAdapter = new FavoriteAdapter(this);
+            FavoritePagedListAdapter favoritePagedListAdapter = new FavoritePagedListAdapter(getActivity(), this);
 
             progressBar.setVisibility(View.VISIBLE);
             viewModel.getAllTvShows().observe(getViewLifecycleOwner(), favoriteMovies -> {
                 progressBar.setVisibility(View.GONE);
-                favoriteTvShowsAdapter.setListFavoriteMovie(favoriteMovies);
-                favoriteTvShowsAdapter.notifyDataSetChanged();
+                favoritePagedListAdapter.submitList(favoriteMovies);
             });
 
             rvTvShowsFavorite.setLayoutManager(new LinearLayoutManager(getContext()));
             rvTvShowsFavorite.setHasFixedSize(true);
-            rvTvShowsFavorite.setAdapter(favoriteTvShowsAdapter);
+            rvTvShowsFavorite.setAdapter(favoritePagedListAdapter);
         }
     }
 

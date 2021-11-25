@@ -38,6 +38,7 @@
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
                 tools:src="@drawable/movie1" />
+
         </com.github.florent37.arclayout.ArcLayout>
 
         <TextView

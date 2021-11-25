@@ -24,12 +24,11 @@ public class FavoriteMovieRepository {
         mFavoriteMovieDao = db.favoriteMovieDao();
     }
 
-    //public LiveData<List<FavoriteMovie>> getAllMovies() {
     public DataSource.Factory<Integer, FavoriteMovie> getAllMovies() {
         return mFavoriteMovieDao.getAllMovies();
     }
 
-    public LiveData<List<FavoriteMovie>> getAllTvShows() {
+    public DataSource.Factory<Integer, FavoriteMovie> getAllTvShows() {
         return mFavoriteMovieDao.getAllTvShows();
     }
 

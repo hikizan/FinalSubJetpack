@@ -19,11 +19,10 @@ public interface FavoriteMovieDao {
     void delete(FavoriteMovie favoriteMovie);
 
     @Query("SELECT * from favoritemovie WHERE IDMovieDB LIKE 'm%' ORDER BY id DESC")
-    //LiveData<List<FavoriteMovie>> getAllMovies();
     DataSource.Factory<Integer, FavoriteMovie> getAllMovies();
 
     @Query("SELECT * from favoritemovie WHERE IDMovieDB LIKE 't%' ORDER BY id DESC")
-    LiveData<List<FavoriteMovie>> getAllTvShows();
+    DataSource.Factory<Integer, FavoriteMovie> getAllTvShows();
 
     @Query("SELECT * from favoritemovie WHERE IDMovieDB = :idfilm")
     LiveData<FavoriteMovie> findSpecificFilm(String idfilm);

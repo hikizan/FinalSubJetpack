@@ -31,16 +31,6 @@ public class FavoriteActivity extends AppCompatActivity {
             getSupportActionBar().setElevation(0);
         }
 
-        //favoriteViewModel = obtainFavoriteViewModel(this);
-
     }
-
-    /*
-    @NonNull
-    private static FavoriteViewModel obtainFavoriteViewModel(AppCompatActivity activity) {
-        FavoriteViewModelFactory mfactory = FavoriteViewModelFactory.getInstance(activity.getApplication());
-        return new ViewModelProvider(activity, mfactory).get(FavoriteViewModel.class);
-    }
-     */
 
 }

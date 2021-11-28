@@ -10,6 +10,7 @@ public class MovieDbModel {
     private String overview;
     private String duration;
     private String url;
+    private Boolean favorited;
     private String image;
 
     public String getIDMovieDB() {
@@ -48,11 +49,15 @@ public class MovieDbModel {
         return url;
     }
 
+    public Boolean getFavorited() {
+        return favorited;
+    }
+
     public String getImage() {
         return image;
     }
 
-    public MovieDbModel(String IDMovieDB, String title, String dateRelease, String rating, String userScore, String genre, String overview, String duration, String url, String image) {
+    public MovieDbModel(String IDMovieDB, String title, String dateRelease, String rating, String userScore, String genre, String overview, String duration, String url, Boolean favorited,String image) {
         this.IDMovieDB = IDMovieDB;
         this.title = title;
         this.dateRelease = dateRelease;
@@ -62,6 +67,7 @@ public class MovieDbModel {
         this.overview = overview;
         this.duration = duration;
         this.url = url;
+        this.favorited = favorited;
         this.image = image;
     }
 }

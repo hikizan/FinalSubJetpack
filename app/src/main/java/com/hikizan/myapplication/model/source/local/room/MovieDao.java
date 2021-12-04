@@ -26,9 +26,12 @@ public interface MovieDao {
     @Query(" SELECT * FROM movietvshowentities WHERE IDMovieDB LIKE 't%' ")
     LiveData<List<MovieTvshowEntity>> getTvShows();
 
-    @Query(" SELECT * FROM movietvshowentities WHERE (IDMovieDB LIKE 'm%') AND (favorited = 'true') ")
+    @Query(" SELECT * FROM movietvshowentities WHERE (IDMovieDB LIKE 'm%') AND (favorited = 1) ")
     LiveData<List<MovieTvshowEntity>> getFavoritedMovies();
 
-    @Query(" SELECT * FROM movietvshowentities WHERE (IDMovieDB LIKE 't%') AND (favorited = 'true') ")
+    @Query(" SELECT * FROM movietvshowentities WHERE (IDMovieDB LIKE 't%') AND (favorited = 1) ")
     LiveData<List<MovieTvshowEntity>> getFavoritedTvshows();
+
+    @Query(" SELECT * FROM movietvshowentities WHERE IDMovieDB = :idfilm")
+    LiveData<MovieTvshowEntity> getMovieTvshowById(String idfilm);
 }

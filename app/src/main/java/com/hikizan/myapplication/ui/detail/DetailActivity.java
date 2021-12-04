@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.hikizan.myapplication.model.source.local.entity.MovieDbModel;
+import com.hikizan.myapplication.model.source.local.entity.MovieTvshowEntity;
 import com.hikizan.myapplication.R;
 import com.hikizan.myapplication.viewmodel.DetailViewModel;
 import com.hikizan.myapplication.viewmodel.ViewModelFactory;
@@ -82,7 +82,7 @@ public class DetailActivity extends AppCompatActivity {
         img = findViewById(R.id.tv_detail_image);
     }
 
-    private void setData(MovieDbModel movie) {
+    private void setData(MovieTvshowEntity movie) {
         txtTitle.setText(movie.getTitle());
         txtDateRelease.setText(movie.getDateRelease());
         txtRating.setText(movie.getRating());

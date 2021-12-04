@@ -3,7 +3,7 @@ package com.hikizan.myapplication.model.source.local;
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 
 import com.hikizan.myapplication.utils.DummyData;
-import com.hikizan.myapplication.model.source.local.entity.MovieDbModel;
+import com.hikizan.myapplication.model.source.local.entity.MovieTvshowEntity;
 import com.hikizan.myapplication.model.source.remote.RemoteDataSource;
 import com.hikizan.myapplication.model.source.remote.response.MovieDbResponse;
 import com.hikizan.myapplication.utils.LiveDataTestUtil;
@@ -38,10 +38,10 @@ public class MovieDbRepositoryTest {
                     .onAllCoursesReceived(movieDbResponses);
             return null;
         }).when(remote).getMovies(eq("0"), any(RemoteDataSource.LoadMoviesCallback.class));
-        List<MovieDbModel> movieDbModels = LiveDataTestUtil.getValue(academyRepository.getMovies("0"));
+        List<MovieTvshowEntity> movieTvshowEntities = LiveDataTestUtil.getValue(academyRepository.getMovies("0"));
         verify(remote).getMovies(eq("0"), any(RemoteDataSource.LoadMoviesCallback.class));
-        assertNotNull(movieDbModels);
-        assertEquals(movieDbResponses.size(), movieDbModels.size());
+        assertNotNull(movieTvshowEntities);
+        assertEquals(movieDbResponses.size(), movieTvshowEntities.size());
     }
 
 

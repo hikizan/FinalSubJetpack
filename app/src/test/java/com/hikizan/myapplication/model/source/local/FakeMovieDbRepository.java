@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.hikizan.myapplication.model.MovieDbDataSource;
-import com.hikizan.myapplication.model.source.local.entity.MovieDbModel;
+import com.hikizan.myapplication.model.source.local.entity.MovieTvshowEntity;
 import com.hikizan.myapplication.model.source.remote.RemoteDataSource;
 import com.hikizan.myapplication.model.source.remote.response.MovieDbResponse;
 
@@ -22,12 +22,12 @@ public class FakeMovieDbRepository implements MovieDbDataSource {
     }
 
     @Override
-    public LiveData<List<MovieDbModel>> getMovies(String checkId) {
-        MutableLiveData<List<MovieDbModel>> courseResults = new MutableLiveData<>();
+    public LiveData<List<MovieTvshowEntity>> getMovies(String checkId) {
+        MutableLiveData<List<MovieTvshowEntity>> courseResults = new MutableLiveData<>();
         remoteDataSource.getMovies(checkId, courseResponses -> {
-            ArrayList<MovieDbModel> courseList = new ArrayList<>();
+            ArrayList<MovieTvshowEntity> courseList = new ArrayList<>();
             for (MovieDbResponse response : courseResponses) {
-                MovieDbModel course = new MovieDbModel(
+                MovieTvshowEntity course = new MovieTvshowEntity(
                         response.getIDMovieDB(),
                         response.getTitle(),
                         response.getDateRelease(),
@@ -48,13 +48,13 @@ public class FakeMovieDbRepository implements MovieDbDataSource {
     }
 
     @Override
-    public LiveData<MovieDbModel> getDetailMovies(String checkId, String moviesID) {
-        MutableLiveData<MovieDbModel> courseResults = new MutableLiveData<>();
+    public LiveData<MovieTvshowEntity> getDetailMovies(String checkId, String moviesID) {
+        MutableLiveData<MovieTvshowEntity> courseResults = new MutableLiveData<>();
         remoteDataSource.getMovies(checkId, courseResponses -> {
-            MovieDbModel course = null;
+            MovieTvshowEntity course = null;
             for (MovieDbResponse response : courseResponses) {
                 if (response.getIDMovieDB().equals(moviesID)) {
-                    course = new MovieDbModel(
+                    course = new MovieTvshowEntity(
                             response.getIDMovieDB(),
                             response.getTitle(),
                             response.getDateRelease(),

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.hikizan.myapplication.model.MovieDbRepository;
-import com.hikizan.myapplication.model.source.local.entity.MovieDbModel;
+import com.hikizan.myapplication.model.source.local.entity.MovieTvshowEntity;
 
 public class DetailViewModel extends ViewModel {
     private MovieDbRepository repository;
@@ -18,8 +18,8 @@ public class DetailViewModel extends ViewModel {
         this.movieID = film;
     }
 
-    public LiveData<MovieDbModel> getDetailMovies(String check) {
-        LiveData<MovieDbModel> movieDbModel = repository.getDetailMovies(check, movieID);
+    public LiveData<MovieTvshowEntity> getDetailMovies(String check) {
+        LiveData<MovieTvshowEntity> movieDbModel = repository.getDetailMovies(check, movieID);
         return movieDbModel;
     }
 }

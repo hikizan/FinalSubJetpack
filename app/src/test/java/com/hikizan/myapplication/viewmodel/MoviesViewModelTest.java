@@ -6,7 +6,7 @@ import androidx.lifecycle.Observer;
 
 import com.hikizan.myapplication.utils.DummyData;
 import com.hikizan.myapplication.model.MovieDbRepository;
-import com.hikizan.myapplication.model.source.local.entity.MovieDbModel;
+import com.hikizan.myapplication.model.source.local.entity.MovieTvshowEntity;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -31,7 +31,7 @@ public class MoviesViewModelTest {
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
     @Mock
-    private Observer<List<MovieDbModel>> observer;
+    private Observer<List<MovieTvshowEntity>> observer;
 
     @Mock
     private MovieDbRepository movieDbRepository;
@@ -43,12 +43,12 @@ public class MoviesViewModelTest {
 
     @Test
     public void getData() {
-        ArrayList<MovieDbModel> dummyMovies = DummyData.generateDummyMovies();
-        MutableLiveData<List<MovieDbModel>> movies = new MutableLiveData<>();
+        ArrayList<MovieTvshowEntity> dummyMovies = DummyData.generateDummyMovies();
+        MutableLiveData<List<MovieTvshowEntity>> movies = new MutableLiveData<>();
         movies.setValue(dummyMovies);
 
         when(movieDbRepository.getMovies("0")).thenReturn(movies);
-        List<MovieDbModel> ListMovies = viewModel.getData().getValue();
+        List<MovieTvshowEntity> ListMovies = viewModel.getData().getValue();
         verify(movieDbRepository).getMovies("0");
         assertNotNull(ListMovies);
         assertEquals(10, ListMovies.size());

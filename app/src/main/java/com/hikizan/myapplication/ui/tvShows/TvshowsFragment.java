@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hikizan.myapplication.adapter.MovieDbAdapter;
 import com.hikizan.myapplication.callback.MovieDbClickCallback;
-import com.hikizan.myapplication.model.source.local.entity.MovieDbModel;
+import com.hikizan.myapplication.model.source.local.entity.MovieTvshowEntity;
 import com.hikizan.myapplication.R;
 import com.hikizan.myapplication.viewmodel.TvShowsViewModel;
 import com.hikizan.myapplication.viewmodel.ViewModelFactory;
@@ -67,7 +67,7 @@ public class TvshowsFragment extends Fragment implements MovieDbClickCallback {
     }
 
     @Override
-    public void onShareClick(MovieDbModel movie) {
+    public void onShareClick(MovieTvshowEntity movie) {
         if (getActivity() != null) {
             String mimeType = "text/plain";
             ShareCompat.IntentBuilder

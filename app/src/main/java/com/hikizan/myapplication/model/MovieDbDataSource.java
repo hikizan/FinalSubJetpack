@@ -2,12 +2,12 @@ package com.hikizan.myapplication.model;
 
 import androidx.lifecycle.LiveData;
 
-import com.hikizan.myapplication.model.source.local.entity.MovieDbModel;
+import com.hikizan.myapplication.model.source.local.entity.MovieTvshowEntity;
 
 import java.util.List;
 
 public interface MovieDbDataSource {
-    LiveData<List<MovieDbModel>> getMovies(String checkId);
+    LiveData<List<MovieTvshowEntity>> getMovies(String checkId);
 
-    LiveData<MovieDbModel> getDetailMovies(String checkId, String moviesID);
+    LiveData<MovieTvshowEntity> getDetailMovies(String checkId, String moviesID);
 }

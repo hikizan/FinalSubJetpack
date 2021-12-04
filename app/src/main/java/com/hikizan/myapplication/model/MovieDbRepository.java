@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.hikizan.myapplication.model.source.local.entity.MovieDbModel;
+import com.hikizan.myapplication.model.source.local.entity.MovieTvshowEntity;
 import com.hikizan.myapplication.model.source.remote.RemoteDataSource;
 import com.hikizan.myapplication.model.source.remote.response.MovieDbResponse;
 
@@ -32,12 +32,12 @@ public class MovieDbRepository implements MovieDbDataSource {
     }
 
     @Override
-    public LiveData<List<MovieDbModel>> getMovies(String checkId) {
-        MutableLiveData<List<MovieDbModel>> mutableLiveData = new MutableLiveData<>();
+    public LiveData<List<MovieTvshowEntity>> getMovies(String checkId) {
+        MutableLiveData<List<MovieTvshowEntity>> mutableLiveData = new MutableLiveData<>();
         remoteDataSource.getMovies(checkId, movieDbResponses -> {
-            ArrayList<MovieDbModel> ListMovies = new ArrayList<>();
+            ArrayList<MovieTvshowEntity> ListMovies = new ArrayList<>();
             for (MovieDbResponse response : movieDbResponses) {
-                MovieDbModel movie = new MovieDbModel(
+                MovieTvshowEntity movie = new MovieTvshowEntity(
                         response.getIDMovieDB(),
                         response.getTitle(),
                         response.getDateRelease(),
@@ -58,13 +58,13 @@ public class MovieDbRepository implements MovieDbDataSource {
     }
 
     @Override
-    public LiveData<MovieDbModel> getDetailMovies(String checkId, String moviesID) {
-        MutableLiveData<MovieDbModel> mutableLiveData = new MutableLiveData<>();
+    public LiveData<MovieTvshowEntity> getDetailMovies(String checkId, String moviesID) {
+        MutableLiveData<MovieTvshowEntity> mutableLiveData = new MutableLiveData<>();
         remoteDataSource.getMovies(checkId, movieDbResponses -> {
-            MovieDbModel movie = null;
+            MovieTvshowEntity movie = null;
             for (MovieDbResponse response : movieDbResponses) {
                 if (response.getIDMovieDB().equals(moviesID)) {
-                    movie = new MovieDbModel(
+                    movie = new MovieTvshowEntity(
                             response.getIDMovieDB(),
                             response.getTitle(),
                             response.getDateRelease(),

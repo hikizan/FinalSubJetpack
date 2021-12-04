@@ -6,7 +6,7 @@ import androidx.lifecycle.Observer;
 
 import com.hikizan.myapplication.utils.DummyData;
 import com.hikizan.myapplication.model.MovieDbRepository;
-import com.hikizan.myapplication.model.source.local.entity.MovieDbModel;
+import com.hikizan.myapplication.model.source.local.entity.MovieTvshowEntity;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -23,14 +23,14 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class DetailViewModelTest {
     private DetailViewModel viewModel;
-    private MovieDbModel dummyMovies = DummyData.generateDummyMovies().get(0);
+    private MovieTvshowEntity dummyMovies = DummyData.generateDummyMovies().get(0);
     private String movieId = dummyMovies.getIDMovieDB();
 
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
     @Mock
-    private Observer<MovieDbModel> courseObserver;
+    private Observer<MovieTvshowEntity> courseObserver;
 
     @Mock
     private MovieDbRepository movieDbRepository;
@@ -43,22 +43,22 @@ public class DetailViewModelTest {
 
     @Test
     public void getDetailMovies() {
-        MutableLiveData<MovieDbModel> movies = new MutableLiveData<>();
+        MutableLiveData<MovieTvshowEntity> movies = new MutableLiveData<>();
         movies.setValue(dummyMovies);
         when(movieDbRepository.getDetailMovies("0", movieId)).thenReturn(movies);
-        MovieDbModel movieDbModel = viewModel.getDetailMovies("0").getValue();
+        MovieTvshowEntity movieTvshowEntity = viewModel.getDetailMovies("0").getValue();
         verify(movieDbRepository).getDetailMovies("0", movieId);
         assertNotNull(movies);
-        assertEquals(dummyMovies.getIDMovieDB(), movieDbModel.getIDMovieDB());
-        assertEquals(dummyMovies.getTitle(), movieDbModel.getTitle());
-        assertEquals(dummyMovies.getDateRelease(), movieDbModel.getDateRelease());
-        assertEquals(dummyMovies.getRating(), movieDbModel.getRating());
-        assertEquals(dummyMovies.getUserScore(), movieDbModel.getUserScore());
-        assertEquals(dummyMovies.getGenre(), movieDbModel.getGenre());
-        assertEquals(dummyMovies.getOverview(), movieDbModel.getOverview());
-        assertEquals(dummyMovies.getDuration(), movieDbModel.getDuration());
-        assertEquals(dummyMovies.getUrl(), movieDbModel.getUrl());
-        assertEquals(dummyMovies.getImage(), movieDbModel.getImage());
+        assertEquals(dummyMovies.getIDMovieDB(), movieTvshowEntity.getIDMovieDB());
+        assertEquals(dummyMovies.getTitle(), movieTvshowEntity.getTitle());
+        assertEquals(dummyMovies.getDateRelease(), movieTvshowEntity.getDateRelease());
+        assertEquals(dummyMovies.getRating(), movieTvshowEntity.getRating());
+        assertEquals(dummyMovies.getUserScore(), movieTvshowEntity.getUserScore());
+        assertEquals(dummyMovies.getGenre(), movieTvshowEntity.getGenre());
+        assertEquals(dummyMovies.getOverview(), movieTvshowEntity.getOverview());
+        assertEquals(dummyMovies.getDuration(), movieTvshowEntity.getDuration());
+        assertEquals(dummyMovies.getUrl(), movieTvshowEntity.getUrl());
+        assertEquals(dummyMovies.getImage(), movieTvshowEntity.getImage());
 
         viewModel.getDetailMovies("0").observeForever(courseObserver);
         verify(courseObserver).onChanged(dummyMovies);

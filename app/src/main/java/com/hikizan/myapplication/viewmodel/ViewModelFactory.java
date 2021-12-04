@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.hikizan.myapplication.dinjection.Injection;
-import com.hikizan.myapplication.model.source.local.MovieDbRepository;
+import com.hikizan.myapplication.model.source.MovieDbRepository;
 
 public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     private static volatile ViewModelFactory INSTANCE;

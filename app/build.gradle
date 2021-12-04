@@ -50,4 +50,7 @@ dependencies {
 
     implementation 'com.github.florent37:arclayout:1.0.0'
     implementation 'com.flaviofaria:kenburnsview:1.0.7'
+
+    implementation "androidx.room:room-runtime:$roomRuntimeVersion"
+    annotationProcessor "androidx.room:room-compiler:$roomVersion"
 }

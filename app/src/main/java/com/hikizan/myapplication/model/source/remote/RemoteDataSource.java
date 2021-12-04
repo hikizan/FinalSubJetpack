@@ -2,8 +2,8 @@ package com.hikizan.myapplication.model.source.remote;
 
 import android.os.Handler;
 
-import com.hikizan.myapplication.data.EspressoIdlingResource;
-import com.hikizan.myapplication.data.JsonHelper;
+import com.hikizan.myapplication.utils.EspressoIdlingResource;
+import com.hikizan.myapplication.utils.JsonHelper;
 import com.hikizan.myapplication.model.source.remote.response.MovieDbResponse;
 
 import java.util.List;

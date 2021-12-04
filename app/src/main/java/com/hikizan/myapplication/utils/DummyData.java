@@ -1,4 +1,4 @@
-package com.hikizan.myapplication.data;
+package com.hikizan.myapplication.utils;
 
 import com.hikizan.myapplication.model.source.local.entity.MovieDbModel;
 import com.hikizan.myapplication.model.source.remote.response.MovieDbResponse;

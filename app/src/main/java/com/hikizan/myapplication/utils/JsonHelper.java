@@ -1,4 +1,4 @@
-package com.hikizan.myapplication.data;
+package com.hikizan.myapplication.utils;
 
 import android.content.Context;
 

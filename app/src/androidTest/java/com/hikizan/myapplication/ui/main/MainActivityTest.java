@@ -4,8 +4,8 @@ import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.rule.ActivityTestRule;
 
-import com.hikizan.myapplication.data.DummyData;
-import com.hikizan.myapplication.data.EspressoIdlingResource;
+import com.hikizan.myapplication.utils.DummyData;
+import com.hikizan.myapplication.utils.EspressoIdlingResource;
 import com.hikizan.myapplication.model.source.local.entity.MovieDbModel;
 import com.hikizan.myapplication.R;
 

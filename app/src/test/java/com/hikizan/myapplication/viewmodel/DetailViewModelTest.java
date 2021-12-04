@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import com.hikizan.myapplication.utils.DummyData;
-import com.hikizan.myapplication.model.source.MovieDbRepository;
+import com.hikizan.myapplication.model.MovieDbRepository;
 import com.hikizan.myapplication.model.source.local.entity.MovieDbModel;
 
 import org.junit.Before;

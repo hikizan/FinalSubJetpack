@@ -3,7 +3,7 @@ package com.hikizan.myapplication.viewmodel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.hikizan.myapplication.model.source.MovieDbRepository;
+import com.hikizan.myapplication.model.MovieDbRepository;
 import com.hikizan.myapplication.model.source.local.entity.MovieDbModel;
 
 import java.util.List;

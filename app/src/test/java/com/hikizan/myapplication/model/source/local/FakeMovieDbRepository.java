@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.hikizan.myapplication.model.source.MovieDbDataSource;
+import com.hikizan.myapplication.model.MovieDbDataSource;
 import com.hikizan.myapplication.model.source.local.entity.MovieDbModel;
 import com.hikizan.myapplication.model.source.remote.RemoteDataSource;
 import com.hikizan.myapplication.model.source.remote.response.MovieDbResponse;

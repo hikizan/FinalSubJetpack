@@ -1,4 +1,4 @@
-package com.hikizan.myapplication.model.source;
+package com.hikizan.myapplication.model;
 
 import androidx.lifecycle.LiveData;
 

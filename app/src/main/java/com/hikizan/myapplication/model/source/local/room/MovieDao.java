@@ -20,11 +20,14 @@ public interface MovieDao {
     @Update
     void updateMovieTvshow(MovieTvshowEntity movietvshow);
 
+    @Query(" SELECT * FROM movietvshowentities")
+    LiveData<List<MovieTvshowEntity>> getAllMovieTvshow();
+
     @Query(" SELECT * FROM movietvshowentities WHERE IDMovieDB LIKE 'm%' ")
-    LiveData<List<MovieTvshowEntity>> getMovies();
+    LiveData<List<MovieTvshowEntity>> getListMovie();
 
     @Query(" SELECT * FROM movietvshowentities WHERE IDMovieDB LIKE 't%' ")
-    LiveData<List<MovieTvshowEntity>> getTvShows();
+    LiveData<List<MovieTvshowEntity>> getListTvShow();
 
     @Query(" SELECT * FROM movietvshowentities WHERE (IDMovieDB LIKE 'm%') AND (favorited = 1) ")
     LiveData<List<MovieTvshowEntity>> getFavoritedMovies();

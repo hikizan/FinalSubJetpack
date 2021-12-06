@@ -23,12 +23,16 @@ public class LocalDataSource {
         return INSTANCE;
     }
 
+    public LiveData<List<MovieTvshowEntity>> getAllMovieTvshow() {
+        return mMovieDao.getAllMovieTvshow();
+    }
+
     public LiveData<List<MovieTvshowEntity>> getMovies() {
-        return mMovieDao.getMovies();
+        return mMovieDao.getListMovie();
     }
 
     public LiveData<List<MovieTvshowEntity>> getTvShows() {
-        return mMovieDao.getTvShows();
+        return mMovieDao.getListTvShow();
     }
 
     public LiveData<List<MovieTvshowEntity>> getFavoritedMovies() {

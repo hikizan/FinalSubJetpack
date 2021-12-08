@@ -70,7 +70,13 @@ public class MovieDbRepository implements MovieDbDataSource {
 
             @Override
             protected LiveData<List<MovieTvshowEntity>> loadFromDB() {
-                return localDataSource.getAllMovieTvshow();
+                LiveData<List<MovieTvshowEntity>> temp = null;
+                if (checkId == "0") {
+                    temp = localDataSource.getListMovies();
+                } else if (checkId == "1"){
+                    temp = localDataSource.getListTvShows();
+                }
+                return temp;
             }
 
             @Override

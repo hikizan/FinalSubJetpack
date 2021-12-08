@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -52,17 +53,35 @@ public class DetailActivity extends AppCompatActivity {
             if (moviesID != null) {
                 char id = moviesID.charAt(0);
 
-                progressBar.setVisibility(View.VISIBLE);
+                //progressBar.setVisibility(View.VISIBLE);
                 detailViewModel.setSelectedMovies(moviesID);
                 if (id == 'm') {
                     detailViewModel.getDetailMovies("0").observe(this, movie -> {
+                        /*
                         progressBar.setVisibility(View.GONE);
                         setData(movie);
+                         */
+
+                        if (movie != null){
+                            switch (movie.status){
+                                case LOADING:
+                                    progressBar.setVisibility(View.VISIBLE);
+                                    break;
+                                case SUCCESS:
+                                    progressBar.setVisibility(View.GONE);
+                                    setData(movie.data);
+                                    break;
+                                case ERROR:
+                                    progressBar.setVisibility(View.GONE);
+                                    Toast.makeText(this, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show();
+                                    break;
+                            }
+                        }
                     });
                 } else {
                     detailViewModel.getDetailMovies("1").observe(this, movie -> {
                         progressBar.setVisibility(View.GONE);
-                        setData(movie);
+                        setData(movie.data);
                     });
 
                 }

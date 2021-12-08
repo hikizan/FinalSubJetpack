@@ -27,9 +27,13 @@ public class LocalDataSource {
         return mMovieDao.getAllMovieTvshow();
     }
 
-    //public LiveData<List<MovieTvshowEntity>> getMovies() { return mMovieDao.getListMovie(); }
+    public LiveData<List<MovieTvshowEntity>> getListMovies() {
+        return mMovieDao.getListMovie();
+    }
 
-    //public LiveData<List<MovieTvshowEntity>> getTvShows() { return mMovieDao.getListTvShow(); }
+    public LiveData<List<MovieTvshowEntity>> getListTvShows() {
+        return mMovieDao.getListTvShow();
+    }
 
     public LiveData<List<MovieTvshowEntity>> getFavoritedMovies() {
         return mMovieDao.getFavoritedMovies();
@@ -52,7 +56,7 @@ public class LocalDataSource {
         mMovieDao.updateMovieTvshow(movietvshow);
     }
 
-    public void updateContent(MovieTvshowEntity movieTvshow){
+    public void updateContent(MovieTvshowEntity movieTvshow) {
         mMovieDao.updateMovieTvshow(movieTvshow);
     }
 }

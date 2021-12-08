@@ -2,6 +2,7 @@ package com.hikizan.myapplication.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
 import com.hikizan.myapplication.model.MovieDbRepository;
@@ -11,8 +12,6 @@ import com.hikizan.myapplication.vo.Resource;
 public class DetailViewModel extends ViewModel {
     private MovieDbRepository repository;
     private String movieID;
-
-    private MutableLiveData<String> idFilm = new MutableLiveData<>();
 
     public DetailViewModel(MovieDbRepository movieDbRepository) {
         this.repository = movieDbRepository;

@@ -40,6 +40,16 @@ public class RemoteDataSource {
         return resultMovies;
     }
 
+    public LiveData<ApiResponse<MovieDbResponse>> getDetailMovie(String checkId, String IDMovieDB){
+        EspressoIdlingResource.increment();
+        MutableLiveData<ApiResponse<MovieDbResponse>> resultDetailMovie = new MutableLiveData<>();
+        handler.postDelayed(() -> {
+            resultDetailMovie.setValue(ApiResponse.success(jsonHelper.loadDetailContent(checkId, IDMovieDB)));
+            EspressoIdlingResource.decrement();
+        }, SERVICE_LATENCY_IN_MILLIS);
+        return resultDetailMovie;
+    }
+
     public interface LoadMoviesCallback {
         void onAllCoursesReceived(List<MovieDbResponse> movieDbResponses);
     }

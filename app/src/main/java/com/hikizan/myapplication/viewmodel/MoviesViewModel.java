@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.hikizan.myapplication.model.MovieDbRepository;
 import com.hikizan.myapplication.model.source.local.entity.MovieTvshowEntity;
+import com.hikizan.myapplication.vo.Resource;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class MoviesViewModel extends ViewModel {
         this.repository = movieDbRepository;
     }
 
-    public LiveData<List<MovieTvshowEntity>> getData() {
+    public LiveData<Resource<List<MovieTvshowEntity>>> getData() {
         return repository.getMovies("0");
     }
 }

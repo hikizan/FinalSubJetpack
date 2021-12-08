@@ -87,7 +87,7 @@ public class MovieDbRepository implements MovieDbDataSource {
             protected void saveCallResult(List<MovieDbResponse> movieTvshowResponses) {
                 ArrayList<MovieTvshowEntity> movieTvshowList = new ArrayList<>();
                 for (MovieDbResponse response : movieTvshowResponses) {
-                    MovieTvshowEntity movieTvshow = new MovieTvshowEntity((response.getIDMovieDB(),
+                    MovieTvshowEntity movieTvshow = new MovieTvshowEntity(response.getIDMovieDB(),
                             response.getTitle(),
                             response.getDateRelease(),
                             response.getRating(),
@@ -96,7 +96,8 @@ public class MovieDbRepository implements MovieDbDataSource {
                             response.getOverview(),
                             response.getDuration(),
                             response.getUrl(),
-                            response.getImage());
+                            response.getImage(),
+                            false);
                     movieTvshowList.add(movieTvshow);
                 }
                 localDataSource.insertMoviesTvshows(movieTvshowList);
@@ -135,21 +136,33 @@ public class MovieDbRepository implements MovieDbDataSource {
 
             @Override
             protected LiveData<MovieTvshowEntity> loadFromDB() {
-                return null;
+                return localDataSource.getMovieTvshowById(moviesID);
             }
 
             @Override
-            protected Boolean shouldFetch(MovieTvshowEntity data) {
-                return null;
+            protected Boolean shouldFetch(MovieTvshowEntity movietvshow) {
+                return (movietvshow == null);
             }
 
             @Override
             protected LiveData<ApiResponse<MovieDbResponse>> createCall() {
-                return null;
+                return remoteDataSource.getDetailMovie(checkId, moviesID);
             }
 
             @Override
             protected void saveCallResult(MovieDbResponse data) {
+                MovieTvshowEntity movieTvshowEntity = new MovieTvshowEntity(data.getIDMovieDB(),
+                        data.getTitle(),
+                        data.getDateRelease(),
+                        data.getRating(),
+                        data.getUserScore(),
+                        data.getGenre(),
+                        data.getOverview(),
+                        data.getDuration(),
+                        data.getUrl(),
+                        data.getImage(),
+                        false);
+                localDataSource.updateContent(movieTvshowEntity);
 
             }
         }.asLiveData();
@@ -157,16 +170,16 @@ public class MovieDbRepository implements MovieDbDataSource {
 
     @Override
     public LiveData<List<MovieTvshowEntity>> getFavoritedMovies() {
-        return null;
+        return localDataSource.getFavoritedMovies();
     }
 
     @Override
     public LiveData<List<MovieTvshowEntity>> getFavoritedTvshows() {
-        return null;
+        return localDataSource.getFavoritedTvshows();
     }
 
     @Override
     public void setMovieTvshowsFavorite(MovieTvshowEntity movietvshow, boolean state) {
-
+        appExecutors.diskIO().execute(() -> localDataSource.setMovieTvshowFavorite(movietvshow, state));
     }
 }

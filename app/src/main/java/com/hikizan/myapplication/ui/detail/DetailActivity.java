@@ -80,8 +80,26 @@ public class DetailActivity extends AppCompatActivity {
                     });
                 } else {
                     detailViewModel.getDetailMovies("1").observe(this, movie -> {
+                        /*
                         progressBar.setVisibility(View.GONE);
                         setData(movie.data);
+                         */
+
+                        if (movie != null){
+                            switch (movie.status){
+                                case LOADING:
+                                    progressBar.setVisibility(View.VISIBLE);
+                                    break;
+                                case SUCCESS:
+                                    progressBar.setVisibility(View.GONE);
+                                    setData(movie.data);
+                                    break;
+                                case ERROR:
+                                    progressBar.setVisibility(View.GONE);
+                                    Toast.makeText(this, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show();
+                                    break;
+                            }
+                        }
                     });
 
                 }

@@ -4,9 +4,9 @@ import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.rule.ActivityTestRule;
 
-import com.hikizan.myapplication.data.DummyData;
-import com.hikizan.myapplication.data.EspressoIdlingResource;
-import com.hikizan.myapplication.model.source.local.entity.MovieDbModel;
+import com.hikizan.myapplication.utils.DummyData;
+import com.hikizan.myapplication.utils.EspressoIdlingResource;
+import com.hikizan.myapplication.model.source.local.entity.MovieTvshowEntity;
 import com.hikizan.myapplication.R;
 
 import org.junit.After;
@@ -25,8 +25,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 public class MainActivityTest {
 
-    private ArrayList<MovieDbModel> dummyMovies = DummyData.generateDummyMovies();
-    private ArrayList<MovieDbModel> dummyTvShows = DummyData.generateDummyTvShows();
+    private ArrayList<MovieTvshowEntity> dummyMovies = DummyData.generateDummyMovies();
+    private ArrayList<MovieTvshowEntity> dummyTvShows = DummyData.generateDummyTvShows();
 
     @Before
     public void setUp() {

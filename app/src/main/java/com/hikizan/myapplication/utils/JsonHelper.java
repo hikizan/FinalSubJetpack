@@ -1,4 +1,4 @@
-package com.hikizan.myapplication.data;
+package com.hikizan.myapplication.utils;
 
 import android.content.Context;
 
@@ -70,5 +70,45 @@ public class JsonHelper {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public MovieDbResponse loadDetailContent(String checkId, String IDContent) {
+        MovieDbResponse movieDbResponse = null;
+        try {
+            String json = parsingFileToString("DbMovieResponses.json");
+            if (json != null) {
+                JSONObject responseObject = new JSONObject(json);
+                JSONArray listArray;
+
+                if (checkId.equals("0")) {
+                    listArray = responseObject.getJSONArray("movies");
+                } else {
+                    listArray = responseObject.getJSONArray("tvShows");
+                }
+
+                for (int i = 0; i < listArray.length(); i++) {
+                    JSONObject tvShow = listArray.getJSONObject(i);
+
+                    if (tvShow.getString("IDMovieDB").equals(IDContent)){
+                        String IDMovieDB = tvShow.getString("IDMovieDB");
+                        String title = tvShow.getString("title");
+                        String dateRelease = tvShow.getString("dateRelease");
+                        String rating = tvShow.getString("rating");
+                        String userScore = tvShow.getString("userScore");
+                        String genre = tvShow.getString("genre");
+                        String overview = tvShow.getString("overview");
+                        String duration = tvShow.getString("duration");
+                        String url = tvShow.getString("url");
+                        String image = tvShow.getString("image");
+
+                        movieDbResponse = new MovieDbResponse(IDMovieDB, title, dateRelease, rating, userScore, genre, overview, duration, url, image);
+                    }
+
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return movieDbResponse;
     }
 }

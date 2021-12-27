@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.hikizan.myapplication.dinjection.Injection;
-import com.hikizan.myapplication.model.source.MovieDbRepository;
+import com.hikizan.myapplication.model.MovieDbRepository;
 
 public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     private static volatile ViewModelFactory INSTANCE;
@@ -40,6 +40,8 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
             return (T) new TvShowsViewModel(repository);
         } else if (modelClass.isAssignableFrom(DetailViewModel.class)) {
             return (T) new DetailViewModel(repository);
+        } else if (modelClass.isAssignableFrom(FavoriteViewModel.class)) {
+            return (T) new FavoriteViewModel(repository);
         }
 
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());

@@ -1,7 +1,7 @@
 package com.hikizan.myapplication.callback;
 
-import com.hikizan.myapplication.model.source.local.entity.MovieDbModel;
+import com.hikizan.myapplication.model.source.local.entity.MovieTvshowEntity;
 
 public interface MovieDbClickCallback {
-    void onShareClick(MovieDbModel filmEntity);
+    void onShareClick(MovieTvshowEntity filmEntity);
 }

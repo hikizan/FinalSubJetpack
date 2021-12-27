@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hikizan.myapplication.adapter.MovieDbAdapter;
 import com.hikizan.myapplication.callback.MovieDbClickCallback;
-import com.hikizan.myapplication.model.source.local.entity.MovieDbModel;
+import com.hikizan.myapplication.model.source.local.entity.MovieTvshowEntity;
 import com.hikizan.myapplication.R;
 import com.hikizan.myapplication.viewmodel.TvShowsViewModel;
 import com.hikizan.myapplication.viewmodel.ViewModelFactory;
@@ -34,11 +35,43 @@ public class TvshowsFragment extends Fragment implements MovieDbClickCallback {
         super.onViewCreated(view, savedInstanceState);
         rvTvShows = view.findViewById(R.id.rv_tvshows);
         progressBar = view.findViewById(R.id.progress_bar);
+
+        if (getActivity() != null) {
+            ViewModelFactory factory = ViewModelFactory.getInstance(getActivity());
+            TvShowsViewModel viewModel = new ViewModelProvider(this, factory).get(TvShowsViewModel.class);
+
+            MovieDbAdapter moviesAdapter = new MovieDbAdapter(this);
+
+
+            viewModel.getData().observe(getViewLifecycleOwner(), movies -> {
+                if (movies != null){
+                    switch (movies.status){
+                        case LOADING:
+                            progressBar.setVisibility(View.VISIBLE);
+                            break;
+                        case SUCCESS:
+                            progressBar.setVisibility(View.GONE);
+                            moviesAdapter.setMovies(movies.data);
+                            moviesAdapter.notifyDataSetChanged();
+                            break;
+                        case ERROR:
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(getContext(), "Terjadi Kesalahan", Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                }
+            });
+
+            rvTvShows.setLayoutManager(new LinearLayoutManager(getContext()));
+            rvTvShows.setHasFixedSize(true);
+            rvTvShows.setAdapter(moviesAdapter);
+        }
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        /*
         if (getActivity() != null) {
             ViewModelFactory factory = ViewModelFactory.getInstance(getActivity());
             TvShowsViewModel viewModel = new ViewModelProvider(this, factory).get(TvShowsViewModel.class);
@@ -57,6 +90,7 @@ public class TvshowsFragment extends Fragment implements MovieDbClickCallback {
             rvTvShows.setHasFixedSize(true);
             rvTvShows.setAdapter(moviesAdapter);
         }
+         */
     }
 
     @Override
@@ -67,7 +101,7 @@ public class TvshowsFragment extends Fragment implements MovieDbClickCallback {
     }
 
     @Override
-    public void onShareClick(MovieDbModel movie) {
+    public void onShareClick(MovieTvshowEntity movie) {
         if (getActivity() != null) {
             String mimeType = "text/plain";
             ShareCompat.IntentBuilder

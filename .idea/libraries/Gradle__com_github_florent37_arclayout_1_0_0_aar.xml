@@ -4,6 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/231b8f2acdb7bb9f8721d4ee78d8c820/jetified-arclayout-1.0.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/231b8f2acdb7bb9f8721d4ee78d8c820/jetified-arclayout-1.0.0/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/231b8f2acdb7bb9f8721d4ee78d8c820/jetified-arclayout-1.0.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/93fabafe315009cbafeefcb7e547dea8/jetified-arclayout-1.0.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/93fabafe315009cbafeefcb7e547dea8/jetified-arclayout-1.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/93fabafe315009cbafeefcb7e547dea8/jetified-arclayout-1.0.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.florent37/arclayout/1.0.0/c1f47341754c62bf5a8b1b2dea8f6176fc882014/arclayout-1.0.0-javadoc.jar!/" />

@@ -5,18 +5,22 @@ import androidx.lifecycle.ViewModel;
 
 import com.hikizan.myapplication.model.MovieDbRepository;
 import com.hikizan.myapplication.model.source.local.entity.MovieTvshowEntity;
-import com.hikizan.myapplication.vo.Resource;
+
 
 import java.util.List;
 
-public class MoviesViewModel extends ViewModel {
+public class FavoriteViewModel extends ViewModel {
     private MovieDbRepository repository;
 
-    public MoviesViewModel(MovieDbRepository movieDbRepository) {
+    public FavoriteViewModel(MovieDbRepository movieDbRepository){
         this.repository = movieDbRepository;
     }
 
-    public LiveData<Resource<List<MovieTvshowEntity>>> getData() {
-        return repository.getMovies("0");
+    public LiveData<List<MovieTvshowEntity>> getFavoriteTvShowList() {
+        return repository.getFavoritedTvshows();
+    }
+
+    public LiveData<List<MovieTvshowEntity>> getFavoriteMovieList() {
+        return repository.getFavoritedMovies();
     }
 }

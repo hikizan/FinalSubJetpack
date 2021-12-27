@@ -1,4 +1,4 @@
-package com.hikizan.myapplication.data;
+package com.hikizan.myapplication.utils;
 
 import androidx.test.espresso.IdlingResource;
 import androidx.test.espresso.idling.CountingIdlingResource;

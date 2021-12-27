@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hikizan.myapplication.adapter.MovieDbAdapter;
 import com.hikizan.myapplication.callback.MovieDbClickCallback;
-import com.hikizan.myapplication.model.source.local.entity.MovieDbModel;
+import com.hikizan.myapplication.model.source.local.entity.MovieTvshowEntity;
 import com.hikizan.myapplication.R;
 import com.hikizan.myapplication.viewmodel.MoviesViewModel;
 import com.hikizan.myapplication.viewmodel.ViewModelFactory;
@@ -44,13 +45,25 @@ public class MoviesFragment extends Fragment implements MovieDbClickCallback {
             MoviesViewModel viewModel = new ViewModelProvider(this, factory).get(MoviesViewModel.class);
 
             MovieDbAdapter moviesAdapter = new MovieDbAdapter(this);
-            progressBar.setVisibility(View.VISIBLE);
+
             viewModel.getData().observe(getViewLifecycleOwner(), movies -> {
-                        progressBar.setVisibility(View.GONE);
-                        moviesAdapter.setMovies(movies);
-                        moviesAdapter.notifyDataSetChanged();
+                if (movies != null){
+                    switch (movies.status){
+                        case LOADING:
+                            progressBar.setVisibility(View.VISIBLE);
+                            break;
+                        case SUCCESS:
+                            progressBar.setVisibility(View.GONE);
+                            moviesAdapter.setMovies(movies.data);
+                            moviesAdapter.notifyDataSetChanged();
+                            break;
+                        case ERROR:
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(getContext(), "Terjadi Kesalahan", Toast.LENGTH_SHORT).show();
+                            break;
                     }
-            );
+                }
+            });
 
             rvMovies.setLayoutManager(new LinearLayoutManager(getContext()));
             rvMovies.setHasFixedSize(true);
@@ -66,7 +79,7 @@ public class MoviesFragment extends Fragment implements MovieDbClickCallback {
     }
 
     @Override
-    public void onShareClick(MovieDbModel movie) {
+    public void onShareClick(MovieTvshowEntity movie) {
         if (getActivity() != null) {
             String mimeType = "text/plain";
             ShareCompat.IntentBuilder

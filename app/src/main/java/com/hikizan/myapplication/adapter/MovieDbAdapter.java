@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.hikizan.myapplication.callback.MovieDbClickCallback;
-import com.hikizan.myapplication.model.source.local.entity.MovieDbModel;
+import com.hikizan.myapplication.model.source.local.entity.MovieTvshowEntity;
 import com.hikizan.myapplication.R;
 import com.hikizan.myapplication.ui.detail.DetailActivity;
 
@@ -24,13 +24,13 @@ import java.util.List;
 public class MovieDbAdapter extends RecyclerView.Adapter<MovieDbAdapter.MoviesViewHolder> {
 
     private final MovieDbClickCallback callback;
-    private final ArrayList<MovieDbModel> listMovies = new ArrayList<>();
+    private final ArrayList<MovieTvshowEntity> listMovies = new ArrayList<>();
 
     public MovieDbAdapter(MovieDbClickCallback callback) {
         this.callback = callback;
     }
 
-    public void setMovies(List<MovieDbModel> movies) {
+    public void setMovies(List<MovieTvshowEntity> movies) {
         if (movies == null) return;
         this.listMovies.clear();
         this.listMovies.addAll(movies);
@@ -45,19 +45,19 @@ public class MovieDbAdapter extends RecyclerView.Adapter<MovieDbAdapter.MoviesVi
 
     @Override
     public void onBindViewHolder(@NonNull MovieDbAdapter.MoviesViewHolder holder, int position) {
-        MovieDbModel movieDbModel = listMovies.get(position);
-        holder.tvTitle.setText(movieDbModel.getTitle());
-        holder.tvDateRelease.setText(movieDbModel.getDateRelease());
-        holder.tvOverview.setText(movieDbModel.getOverview());
-        holder.share.setOnClickListener(v -> callback.onShareClick(movieDbModel));
+        MovieTvshowEntity movieTvshowEntity = listMovies.get(position);
+        holder.tvTitle.setText(movieTvshowEntity.getTitle());
+        holder.tvDateRelease.setText(movieTvshowEntity.getDateRelease());
+        holder.tvOverview.setText(movieTvshowEntity.getOverview());
+        holder.share.setOnClickListener(v -> callback.onShareClick(movieTvshowEntity));
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(holder.itemView.getContext(), DetailActivity.class);
-            intent.putExtra(DetailActivity.EX_MOVIES, movieDbModel.getIDMovieDB());
+            intent.putExtra(DetailActivity.EX_MOVIES, movieTvshowEntity.getIDMovieDB());
             holder.itemView.getContext().startActivity(intent);
         });
 
-        int resId = holder.itemView.getResources().getIdentifier(movieDbModel.getImage(), "drawable", holder.itemView.getContext().getPackageName());
+        int resId = holder.itemView.getResources().getIdentifier(movieTvshowEntity.getImage(), "drawable", holder.itemView.getContext().getPackageName());
 
         Glide.with(holder.itemView.getContext())
                 .load(resId)

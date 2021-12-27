@@ -40,8 +40,8 @@ public class MoviesFavoriteFragment extends Fragment implements MovieDbClickCall
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onResume() {
+        super.onResume();
 
         ViewModelFactory factory = ViewModelFactory.getInstance(getActivity());
         FavoriteViewModel viewModel = new ViewModelProvider(this, factory).get(FavoriteViewModel.class);
@@ -52,12 +52,11 @@ public class MoviesFavoriteFragment extends Fragment implements MovieDbClickCall
             if (movies.isEmpty()){
                 Toast.makeText(getContext(), "Tidak ada Movie favorite", Toast.LENGTH_SHORT).show();
             }else{
-                //adapter.setMovies(movies);
                 adapter.submitList(movies);
-                rvMoviesFavorite.setLayoutManager(new LinearLayoutManager(getContext()));
-                rvMoviesFavorite.setHasFixedSize(true);
-                rvMoviesFavorite.setAdapter(adapter);
             }
+            rvMoviesFavorite.setLayoutManager(new LinearLayoutManager(getContext()));
+            rvMoviesFavorite.setHasFixedSize(true);
+            rvMoviesFavorite.setAdapter(adapter);
         });
     }
 

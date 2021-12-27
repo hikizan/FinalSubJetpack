@@ -99,6 +99,8 @@ public class DetailActivity extends AppCompatActivity {
                                 case SUCCESS:
                                     progressBar.setVisibility(View.GONE);
                                     setData(movie.data);
+                                    boolean state = movie.data.isFavorited();
+                                    setFabFavorite(state);
                                     break;
                                 case ERROR:
                                     progressBar.setVisibility(View.GONE);

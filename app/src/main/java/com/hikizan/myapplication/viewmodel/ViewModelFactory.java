@@ -40,6 +40,8 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
             return (T) new TvShowsViewModel(repository);
         } else if (modelClass.isAssignableFrom(DetailViewModel.class)) {
             return (T) new DetailViewModel(repository);
+        } else if (modelClass.isAssignableFrom(FavoriteViewModel.class)) {
+            return (T) new FavoriteViewModel(repository);
         }
 
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());

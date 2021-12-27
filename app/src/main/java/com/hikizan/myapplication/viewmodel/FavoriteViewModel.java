@@ -2,6 +2,7 @@ package com.hikizan.myapplication.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.paging.PagedList;
 
 import com.hikizan.myapplication.model.MovieDbRepository;
 import com.hikizan.myapplication.model.source.local.entity.MovieTvshowEntity;
@@ -16,11 +17,11 @@ public class FavoriteViewModel extends ViewModel {
         this.repository = movieDbRepository;
     }
 
-    public LiveData<List<MovieTvshowEntity>> getFavoriteTvShowList() {
+    public LiveData<PagedList<MovieTvshowEntity>> getFavoriteTvShowList() {
         return repository.getFavoritedTvshows();
     }
 
-    public LiveData<List<MovieTvshowEntity>> getFavoriteMovieList() {
+    public LiveData<PagedList<MovieTvshowEntity>> getFavoriteMovieList() {
         return repository.getFavoritedMovies();
     }
 }

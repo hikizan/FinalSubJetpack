@@ -54,7 +54,8 @@ public class MoviesFragment extends Fragment implements MovieDbClickCallback {
                             break;
                         case SUCCESS:
                             progressBar.setVisibility(View.GONE);
-                            moviesAdapter.setMovies(movies.data);
+                            //moviesAdapter.setMovies(movies.data);
+                            moviesAdapter.submitList(movies.data);
                             moviesAdapter.notifyDataSetChanged();
                             break;
                         case ERROR:

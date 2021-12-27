@@ -52,7 +52,8 @@ public class MoviesFavoriteFragment extends Fragment implements MovieDbClickCall
             if (movies.isEmpty()){
                 Toast.makeText(getContext(), "Tidak ada Movie favorite", Toast.LENGTH_SHORT).show();
             }else{
-                adapter.setMovies(movies);
+                //adapter.setMovies(movies);
+                adapter.submitList(movies);
                 rvMoviesFavorite.setLayoutManager(new LinearLayoutManager(getContext()));
                 rvMoviesFavorite.setHasFixedSize(true);
                 rvMoviesFavorite.setAdapter(adapter);

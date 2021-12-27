@@ -53,7 +53,8 @@ public class TvshowsFavoriteFragment extends Fragment implements MovieDbClickCal
             if (tvShows.isEmpty()){
                 Toast.makeText(getContext(), "Tidak ada TvShow favorite", Toast.LENGTH_SHORT).show();
             }else{
-                adapter.setMovies(tvShows);
+                //adapter.setMovies(tvShows);
+                adapter.submitList(tvShows);
                 rvTvshowsFavorite.setLayoutManager(new LinearLayoutManager(getContext()));
                 rvTvshowsFavorite.setHasFixedSize(true);
                 rvTvshowsFavorite.setAdapter(adapter);

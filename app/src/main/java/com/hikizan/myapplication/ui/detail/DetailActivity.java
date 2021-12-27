@@ -1,5 +1,6 @@
 package com.hikizan.myapplication.ui.detail;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,10 +10,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.hikizan.myapplication.model.source.local.entity.MovieTvshowEntity;
 import com.hikizan.myapplication.R;
 import com.hikizan.myapplication.viewmodel.DetailViewModel;
@@ -30,6 +33,7 @@ public class DetailActivity extends AppCompatActivity {
     private TextView txtDuration;
     private ImageView img;
     private ProgressBar progressBar;
+    private FloatingActionButton fabFavorite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +74,8 @@ public class DetailActivity extends AppCompatActivity {
                                 case SUCCESS:
                                     progressBar.setVisibility(View.GONE);
                                     setData(movie.data);
+                                    boolean state = movie.data.isFavorited();
+                                    setFabFavorite(state);
                                     break;
                                 case ERROR:
                                     progressBar.setVisibility(View.GONE);
@@ -105,6 +111,12 @@ public class DetailActivity extends AppCompatActivity {
                 }
             }
         }
+
+        fabFavorite.setOnClickListener(view -> {
+            if (view.getId() == R.id.fab_favorite){
+                detailViewModel.setFavorite();
+            }
+        });
     }
 
     private void setComponent() {
@@ -117,6 +129,7 @@ public class DetailActivity extends AppCompatActivity {
         txtOverview = findViewById(R.id.tv_detail_overview);
         txtDuration = findViewById(R.id.tv_detail_duration);
         img = findViewById(R.id.tv_detail_image);
+        fabFavorite = findViewById(R.id.fab_favorite);
     }
 
     private void setData(MovieTvshowEntity movie) {
@@ -135,5 +148,16 @@ public class DetailActivity extends AppCompatActivity {
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_baseline_refresh_24)
                         .error(R.drawable.ic_baseline_broken_image_24))
                 .into(img);
+    }
+
+    private void setFabFavorite(boolean state){
+        Drawable isFavoriteFab = ContextCompat.getDrawable(this, R.drawable.ic_favorited);
+        Drawable isNotFavoriteFab = ContextCompat.getDrawable(this, R.drawable.ic_favorite_border);
+
+        if (state){
+            fabFavorite.setImageDrawable(isFavoriteFab);
+        }else{
+            fabFavorite.setImageDrawable(isNotFavoriteFab);
+        }
     }
 }

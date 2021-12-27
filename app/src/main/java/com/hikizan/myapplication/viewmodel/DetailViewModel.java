@@ -12,6 +12,7 @@ import com.hikizan.myapplication.vo.Resource;
 public class DetailViewModel extends ViewModel {
     private MovieDbRepository repository;
     private String movieID;
+    LiveData<Resource<MovieTvshowEntity>> movieDbModel;
 
     public DetailViewModel(MovieDbRepository movieDbRepository) {
         this.repository = movieDbRepository;
@@ -22,7 +23,20 @@ public class DetailViewModel extends ViewModel {
     }
 
     public LiveData<Resource<MovieTvshowEntity>> getDetailMovies(String check) {
-        LiveData<Resource<MovieTvshowEntity>> movieDbModel = repository.getDetailMovies(check, movieID);
+        movieDbModel = repository.getDetailMovies(check, movieID);
         return movieDbModel;
+    }
+
+    public void setFavorite(){
+        Resource<MovieTvshowEntity> movieTvshowEntityResource = movieDbModel.getValue();
+        if (movieTvshowEntityResource != null){
+            MovieTvshowEntity movieTvshowEntity = movieTvshowEntityResource.data;
+
+            if (movieTvshowEntity != null){
+
+                final boolean newState = !movieTvshowEntity.isFavorited();
+                repository.setMovieTvshowsFavorite(movieTvshowEntity, newState);
+            }
+        }
     }
 }

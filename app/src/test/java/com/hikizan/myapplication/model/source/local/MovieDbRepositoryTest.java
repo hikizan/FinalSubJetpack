@@ -1,16 +1,21 @@
 package com.hikizan.myapplication.model.source.local;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.MutableLiveData;
 import androidx.paging.DataSource;
 import androidx.paging.PagedList;
 
-import com.hikizan.myapplication.R;
-import com.hikizan.myapplication.utils.AppExecutors;
-import com.hikizan.myapplication.utils.DummyData;
 import com.hikizan.myapplication.model.source.local.entity.MovieTvshowEntity;
 import com.hikizan.myapplication.model.source.remote.RemoteDataSource;
 import com.hikizan.myapplication.model.source.remote.response.MovieDbResponse;
+import com.hikizan.myapplication.utils.AppExecutors;
+import com.hikizan.myapplication.utils.DummyData;
 import com.hikizan.myapplication.utils.LiveDataTestUtil;
 import com.hikizan.myapplication.utils.PagedListUtil;
 import com.hikizan.myapplication.vo.Resource;
@@ -20,43 +25,22 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 public class MovieDbRepositoryTest {
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
-    private RemoteDataSource remote = Mockito.mock(RemoteDataSource.class);
-    private LocalDataSource local = mock(LocalDataSource.class);
-    private AppExecutors appExecutors = mock(AppExecutors.class);
+    private final RemoteDataSource remote = Mockito.mock(RemoteDataSource.class);
+    private final LocalDataSource local = mock(LocalDataSource.class);
+    private final AppExecutors appExecutors = mock(AppExecutors.class);
 
-    private FakeMovieDbRepository academyRepository = new FakeMovieDbRepository(remote, local, appExecutors);
+    private final FakeMovieDbRepository academyRepository = new FakeMovieDbRepository(remote, local, appExecutors);
 
-    private ArrayList<MovieDbResponse> movieDbResponses = DummyData.generateRemoteDummyMovies();
-    private String movieDbId = movieDbResponses.get(0).getIDMovieDB();
+    private final ArrayList<MovieDbResponse> movieDbResponses = DummyData.generateRemoteDummyMovies();
+    private final String movieDbId = movieDbResponses.get(0).getIDMovieDB();
 
     @Test
     public void getListMovies() {
-        /*
-        doAnswer(invocation -> {
-            ((RemoteDataSource.LoadMoviesCallback) invocation.getArguments()[1])
-                    .onAllCoursesReceived(movieDbResponses);
-            return null;
-        }).when(remote).getMovies(eq("0"), any(RemoteDataSource.LoadMoviesCallback.class));
-        List<MovieTvshowEntity> movieTvshowEntities = LiveDataTestUtil.getValue(academyRepository.getMovies("0"));
-        verify(remote).getMovies(eq("0"), any(RemoteDataSource.LoadMoviesCallback.class));
-        assertNotNull(movieTvshowEntities);
-        assertEquals(movieDbResponses.size(), movieTvshowEntities.size());
-         */
 
         DataSource.Factory<Integer, MovieTvshowEntity> dataSourceFactory = mock(DataSource.Factory.class);
         when(local.getListMovies()).thenReturn(dataSourceFactory);

@@ -6,7 +6,6 @@ import androidx.paging.PagedList;
 import com.hikizan.myapplication.model.source.local.entity.MovieTvshowEntity;
 import com.hikizan.myapplication.vo.Resource;
 
-import java.util.List;
 
 public interface MovieDbDataSource {
     LiveData<Resource<PagedList<MovieTvshowEntity>>> getMovies(String checkId);

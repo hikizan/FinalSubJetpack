@@ -8,10 +8,8 @@ import com.hikizan.myapplication.model.MovieDbRepository;
 import com.hikizan.myapplication.model.source.local.entity.MovieTvshowEntity;
 
 
-import java.util.List;
-
 public class FavoriteViewModel extends ViewModel {
-    private MovieDbRepository repository;
+    private final MovieDbRepository repository;
 
     public FavoriteViewModel(MovieDbRepository movieDbRepository){
         this.repository = movieDbRepository;

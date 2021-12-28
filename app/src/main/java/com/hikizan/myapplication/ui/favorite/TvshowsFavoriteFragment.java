@@ -29,7 +29,6 @@ public class TvshowsFavoriteFragment extends Fragment implements MovieDbClickCal
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_tvshows_favorite, container, false);
     }
 
@@ -43,16 +42,16 @@ public class TvshowsFavoriteFragment extends Fragment implements MovieDbClickCal
     @Override
     public void onResume() {
         super.onResume();
-        
+
         ViewModelFactory factory = ViewModelFactory.getInstance(getActivity());
         FavoriteViewModel viewModel = new ViewModelProvider(this, factory).get(FavoriteViewModel.class);
 
         MovieDbAdapter adapter = new MovieDbAdapter(this);
 
         viewModel.getFavoriteTvShowList().observe(getViewLifecycleOwner(), tvShows -> {
-            if (tvShows.isEmpty()){
+            if (tvShows.isEmpty()) {
                 Toast.makeText(getContext(), "Tidak ada TvShow favorite", Toast.LENGTH_SHORT).show();
-            }else{
+            } else {
                 adapter.submitList(tvShows);
             }
             rvTvshowsFavorite.setLayoutManager(new LinearLayoutManager(getContext()));

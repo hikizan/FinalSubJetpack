@@ -47,8 +47,8 @@ public class MoviesFragment extends Fragment implements MovieDbClickCallback {
             MovieDbAdapter moviesAdapter = new MovieDbAdapter(this);
 
             viewModel.getData().observe(getViewLifecycleOwner(), movies -> {
-                if (movies != null){
-                    switch (movies.status){
+                if (movies != null) {
+                    switch (movies.status) {
                         case LOADING:
                             progressBar.setVisibility(View.VISIBLE);
                             break;

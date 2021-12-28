@@ -29,7 +29,6 @@ public class MoviesFavoriteFragment extends Fragment implements MovieDbClickCall
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_movies_favorite, container, false);
     }
 
@@ -49,9 +48,9 @@ public class MoviesFavoriteFragment extends Fragment implements MovieDbClickCall
         MovieDbAdapter adapter = new MovieDbAdapter(this);
 
         viewModel.getFavoriteMovieList().observe(getViewLifecycleOwner(), movies -> {
-            if (movies.isEmpty()){
+            if (movies.isEmpty()) {
                 Toast.makeText(getContext(), "Tidak ada Movie favorite", Toast.LENGTH_SHORT).show();
-            }else{
+            } else {
                 adapter.submitList(movies);
             }
             rvMoviesFavorite.setLayoutManager(new LinearLayoutManager(getContext()));

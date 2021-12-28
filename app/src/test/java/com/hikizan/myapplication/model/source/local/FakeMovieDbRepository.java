@@ -2,7 +2,6 @@ package com.hikizan.myapplication.model.source.local;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 
@@ -19,11 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FakeMovieDbRepository implements MovieDbDataSource {
-    private volatile static FakeMovieDbRepository INSTANCE = null;
+    private static final FakeMovieDbRepository INSTANCE = null;
 
     private final RemoteDataSource remoteDataSource;
     private final LocalDataSource localDataSource;
-    private AppExecutors appExecutors;
+    private final AppExecutors appExecutors;
 
 
     FakeMovieDbRepository(@NonNull RemoteDataSource remoteDataSource, @NonNull LocalDataSource localDataSource, AppExecutors appExecutors) {

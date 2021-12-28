@@ -1,16 +1,22 @@
 package com.hikizan.myapplication.ui.main;
 
-import androidx.recyclerview.widget.RecyclerView;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+
 import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 
+import com.hikizan.myapplication.R;
+import com.hikizan.myapplication.model.source.local.entity.MovieTvshowEntity;
 import com.hikizan.myapplication.utils.DummyData;
 import com.hikizan.myapplication.utils.EspressoIdlingResource;
-import com.hikizan.myapplication.model.source.local.entity.MovieTvshowEntity;
-import com.hikizan.myapplication.R;
 
 import org.junit.After;
 import org.junit.Before;
@@ -19,17 +25,10 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-
 public class MainActivityTest {
 
-    private ArrayList<MovieTvshowEntity> dummyMovies = DummyData.generateDummyMovies();
-    private ArrayList<MovieTvshowEntity> dummyTvShows = DummyData.generateDummyTvShows();
+    private final ArrayList<MovieTvshowEntity> dummyMovies = DummyData.generateDummyMovies();
+    private final ArrayList<MovieTvshowEntity> dummyTvShows = DummyData.generateDummyTvShows();
 
     @Before
     public void setUp() {

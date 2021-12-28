@@ -378,9 +378,9 @@ public class DummyData {
         return movies;
     }
 
-    public static MovieTvshowEntity generateDummyDetail(MovieTvshowEntity movies,boolean favorited){
+    public static MovieTvshowEntity generateDummyDetail(MovieTvshowEntity movies, boolean favorited) {
 
-        MovieTvshowEntity movieTvshowEntity = new MovieTvshowEntity(
+        return new MovieTvshowEntity(
                 movies.getIDMovieDB(),
                 movies.getTitle(),
                 movies.getDateRelease(),
@@ -393,7 +393,5 @@ public class DummyData {
                 movies.getImage(),
                 favorited
         );
-
-        return movieTvshowEntity;
     }
 }

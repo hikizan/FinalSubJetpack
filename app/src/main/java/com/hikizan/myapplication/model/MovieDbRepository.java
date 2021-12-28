@@ -3,6 +3,8 @@ package com.hikizan.myapplication.model;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.paging.LivePagedListBuilder;
+import androidx.paging.PagedList;
 
 import com.hikizan.myapplication.model.source.local.LocalDataSource;
 import com.hikizan.myapplication.model.source.local.entity.MovieTvshowEntity;
@@ -40,7 +42,7 @@ public class MovieDbRepository implements MovieDbDataSource {
     }
 
     @Override
-    public LiveData<Resource<List<MovieTvshowEntity>>> getMovies(String checkId) {
+    public LiveData<Resource<PagedList<MovieTvshowEntity>>> getMovies(String checkId) {
         /*
         MutableLiveData<List<MovieTvshowEntity>> mutableLiveData = new MutableLiveData<>();
         remoteDataSource.getMovies(checkId, movieDbResponses -> {
@@ -66,21 +68,25 @@ public class MovieDbRepository implements MovieDbDataSource {
         return mutableLiveData;
          */
 
-        return new NetworkBoundResource<List<MovieTvshowEntity>, List<MovieDbResponse>>(appExecutors){
+        return new NetworkBoundResource<PagedList<MovieTvshowEntity>, List<MovieDbResponse>>(appExecutors){
 
             @Override
-            protected LiveData<List<MovieTvshowEntity>> loadFromDB() {
-                LiveData<List<MovieTvshowEntity>> temp = null;
-                if (checkId == "0") {
-                    temp = localDataSource.getListMovies();
-                } else if (checkId == "1"){
-                    temp = localDataSource.getListTvShows();
+            protected LiveData<PagedList<MovieTvshowEntity>> loadFromDB() {
+                PagedList.Config config = new PagedList.Config.Builder()
+                        .setEnablePlaceholders(false)
+                        .setInitialLoadSizeHint(4)
+                        .setPageSize(4)
+                        .build();
+
+                if (checkId.equals("0")) {
+                    return  new LivePagedListBuilder<>(localDataSource.getListMovies(), config).build();
+                }else{
+                    return new LivePagedListBuilder<>(localDataSource.getListTvShows(), config).build();
                 }
-                return temp;
             }
 
             @Override
-            protected Boolean shouldFetch(List<MovieTvshowEntity> data) {
+            protected Boolean shouldFetch(PagedList<MovieTvshowEntity> data) {
                 return (data == null) || (data.size() == 0);
             }
 
@@ -175,13 +181,23 @@ public class MovieDbRepository implements MovieDbDataSource {
     }
 
     @Override
-    public LiveData<List<MovieTvshowEntity>> getFavoritedMovies() {
-        return localDataSource.getFavoritedMovies();
+    public LiveData<PagedList<MovieTvshowEntity>> getFavoritedMovies() {
+        PagedList.Config config = new PagedList.Config.Builder()
+                .setEnablePlaceholders(false)
+                .setInitialLoadSizeHint(4)
+                .setPageSize(4)
+                .build();
+        return new LivePagedListBuilder<>(localDataSource.getFavoritedMovies(), config).build();
     }
 
     @Override
-    public LiveData<List<MovieTvshowEntity>> getFavoritedTvshows() {
-        return localDataSource.getFavoritedTvshows();
+    public LiveData<PagedList<MovieTvshowEntity>> getFavoritedTvshows() {
+        PagedList.Config config = new PagedList.Config.Builder()
+                .setEnablePlaceholders(false)
+                .setInitialLoadSizeHint(4)
+                .setPageSize(4)
+                .build();
+        return new LivePagedListBuilder<>(localDataSource.getFavoritedTvshows(), config).build();
     }
 
     @Override

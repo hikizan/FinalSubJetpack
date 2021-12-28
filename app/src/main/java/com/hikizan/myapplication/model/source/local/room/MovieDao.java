@@ -1,6 +1,7 @@
 package com.hikizan.myapplication.model.source.local.room;
 
 import androidx.lifecycle.LiveData;
+import androidx.paging.DataSource;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -20,20 +21,24 @@ public interface MovieDao {
     @Update
     void updateMovieTvshow(MovieTvshowEntity movietvshow);
 
-    @Query(" SELECT * FROM movietvshowentities")
-    LiveData<List<MovieTvshowEntity>> getAllMovieTvshow();
+    //@Query(" SELECT * FROM movietvshowentities")
+    //LiveData<List<MovieTvshowEntity>> getAllMovieTvshow();
 
     @Query(" SELECT * FROM movietvshowentities WHERE IDMovieDB LIKE 'm%' ")
-    LiveData<List<MovieTvshowEntity>> getListMovie();
+    DataSource.Factory<Integer, MovieTvshowEntity> getListMovie();
+    //LiveData<List<MovieTvshowEntity>> getListMovie();
 
     @Query(" SELECT * FROM movietvshowentities WHERE IDMovieDB LIKE 't%' ")
-    LiveData<List<MovieTvshowEntity>> getListTvShow();
+    DataSource.Factory<Integer, MovieTvshowEntity> getListTvShow();
+    //LiveData<List<MovieTvshowEntity>> getListTvShow();
 
     @Query(" SELECT * FROM movietvshowentities WHERE (IDMovieDB LIKE 'm%') AND (favorited = 1) ")
-    LiveData<List<MovieTvshowEntity>> getFavoritedMovies();
+    DataSource.Factory<Integer, MovieTvshowEntity> getFavoritedMovies();
+    //LiveData<List<MovieTvshowEntity>> getFavoritedMovies();
 
     @Query(" SELECT * FROM movietvshowentities WHERE (IDMovieDB LIKE 't%') AND (favorited = 1) ")
-    LiveData<List<MovieTvshowEntity>> getFavoritedTvshows();
+    DataSource.Factory<Integer, MovieTvshowEntity> getFavoritedTvshows();
+    //LiveData<List<MovieTvshowEntity>> getFavoritedTvshows();
 
     @Query(" SELECT * FROM movietvshowentities WHERE IDMovieDB = :idfilm")
     LiveData<MovieTvshowEntity> getMovieTvshowById(String idfilm);

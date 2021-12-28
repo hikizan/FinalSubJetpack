@@ -37,13 +37,13 @@ public class TvshowsFavoriteFragment extends Fragment implements MovieDbClickCal
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rvTvshowsFavorite = view.findViewById(R.id.rv_tvshows_favorite);
-
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        
         ViewModelFactory factory = ViewModelFactory.getInstance(getActivity());
         FavoriteViewModel viewModel = new ViewModelProvider(this, factory).get(FavoriteViewModel.class);
 
@@ -53,14 +53,12 @@ public class TvshowsFavoriteFragment extends Fragment implements MovieDbClickCal
             if (tvShows.isEmpty()){
                 Toast.makeText(getContext(), "Tidak ada TvShow favorite", Toast.LENGTH_SHORT).show();
             }else{
-                adapter.setMovies(tvShows);
-                rvTvshowsFavorite.setLayoutManager(new LinearLayoutManager(getContext()));
-                rvTvshowsFavorite.setHasFixedSize(true);
-                rvTvshowsFavorite.setAdapter(adapter);
+                adapter.submitList(tvShows);
             }
+            rvTvshowsFavorite.setLayoutManager(new LinearLayoutManager(getContext()));
+            rvTvshowsFavorite.setHasFixedSize(true);
+            rvTvshowsFavorite.setAdapter(adapter);
         });
-
-
     }
 
     @Override

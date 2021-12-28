@@ -1,6 +1,7 @@
 package com.hikizan.myapplication.model.source.local;
 
 import androidx.lifecycle.LiveData;
+import androidx.paging.DataSource;
 
 import com.hikizan.myapplication.model.source.local.entity.MovieTvshowEntity;
 import com.hikizan.myapplication.model.source.local.room.MovieDao;
@@ -23,23 +24,25 @@ public class LocalDataSource {
         return INSTANCE;
     }
 
+    /*
     public LiveData<List<MovieTvshowEntity>> getAllMovieTvshow() {
         return mMovieDao.getAllMovieTvshow();
     }
+     */
 
-    public LiveData<List<MovieTvshowEntity>> getListMovies() {
+    public DataSource.Factory<Integer, MovieTvshowEntity> getListMovies() {
         return mMovieDao.getListMovie();
     }
 
-    public LiveData<List<MovieTvshowEntity>> getListTvShows() {
+    public DataSource.Factory<Integer, MovieTvshowEntity> getListTvShows() {
         return mMovieDao.getListTvShow();
     }
 
-    public LiveData<List<MovieTvshowEntity>> getFavoritedMovies() {
+    public DataSource.Factory<Integer, MovieTvshowEntity> getFavoritedMovies() {
         return mMovieDao.getFavoritedMovies();
     }
 
-    public LiveData<List<MovieTvshowEntity>> getFavoritedTvshows() {
+    public DataSource.Factory<Integer, MovieTvshowEntity> getFavoritedTvshows() {
         return mMovieDao.getFavoritedTvshows();
     }
 

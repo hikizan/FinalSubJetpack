@@ -3,11 +3,17 @@ package com.hikizan.myapplication.model.source.local;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.paging.LivePagedListBuilder;
+import androidx.paging.PagedList;
 
 import com.hikizan.myapplication.model.MovieDbDataSource;
+import com.hikizan.myapplication.model.NetworkBoundResource;
 import com.hikizan.myapplication.model.source.local.entity.MovieTvshowEntity;
+import com.hikizan.myapplication.model.source.remote.ApiResponse;
 import com.hikizan.myapplication.model.source.remote.RemoteDataSource;
 import com.hikizan.myapplication.model.source.remote.response.MovieDbResponse;
+import com.hikizan.myapplication.utils.AppExecutors;
+import com.hikizan.myapplication.vo.Resource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,46 +22,50 @@ public class FakeMovieDbRepository implements MovieDbDataSource {
     private volatile static FakeMovieDbRepository INSTANCE = null;
 
     private final RemoteDataSource remoteDataSource;
+    private final LocalDataSource localDataSource;
+    private AppExecutors appExecutors;
 
-    FakeMovieDbRepository(@NonNull RemoteDataSource remoteDataSource) {
+
+    FakeMovieDbRepository(@NonNull RemoteDataSource remoteDataSource, @NonNull LocalDataSource localDataSource, AppExecutors appExecutors) {
         this.remoteDataSource = remoteDataSource;
+        this.localDataSource = localDataSource;
+        this.appExecutors = appExecutors;
     }
 
     @Override
-    public LiveData<List<MovieTvshowEntity>> getMovies(String checkId) {
-        MutableLiveData<List<MovieTvshowEntity>> courseResults = new MutableLiveData<>();
-        remoteDataSource.getMovies(checkId, courseResponses -> {
-            ArrayList<MovieTvshowEntity> courseList = new ArrayList<>();
-            for (MovieDbResponse response : courseResponses) {
-                MovieTvshowEntity course = new MovieTvshowEntity(
-                        response.getIDMovieDB(),
-                        response.getTitle(),
-                        response.getDateRelease(),
-                        response.getRating(),
-                        response.getUserScore(),
-                        response.getGenre(),
-                        response.getOverview(),
-                        response.getDuration(),
-                        response.getUrl(),
-                        response.getImage());
+    public LiveData<Resource<PagedList<MovieTvshowEntity>>> getMovies(String checkId) {
+        return new NetworkBoundResource<PagedList<MovieTvshowEntity>, List<MovieDbResponse>>(appExecutors){
 
-                courseList.add(course);
+            @Override
+            protected LiveData<PagedList<MovieTvshowEntity>> loadFromDB() {
+                PagedList.Config config = new PagedList.Config.Builder()
+                        .setEnablePlaceholders(false)
+                        .setInitialLoadSizeHint(4)
+                        .setPageSize(4)
+                        .build();
+
+                if (checkId.equals("0")) {
+                    return  new LivePagedListBuilder<>(localDataSource.getListMovies(), config).build();
+                }else{
+                    return new LivePagedListBuilder<>(localDataSource.getListTvShows(), config).build();
+                }
             }
-            courseResults.postValue(courseList);
-        });
 
-        return courseResults;
-    }
+            @Override
+            protected Boolean shouldFetch(PagedList<MovieTvshowEntity> data) {
+                return (data == null) || (data.size() == 0);
+            }
 
-    @Override
-    public LiveData<MovieTvshowEntity> getDetailMovies(String checkId, String moviesID) {
-        MutableLiveData<MovieTvshowEntity> courseResults = new MutableLiveData<>();
-        remoteDataSource.getMovies(checkId, courseResponses -> {
-            MovieTvshowEntity course = null;
-            for (MovieDbResponse response : courseResponses) {
-                if (response.getIDMovieDB().equals(moviesID)) {
-                    course = new MovieTvshowEntity(
-                            response.getIDMovieDB(),
+            @Override
+            protected LiveData<ApiResponse<List<MovieDbResponse>>> createCall() {
+                return remoteDataSource.getMovies(checkId);
+            }
+
+            @Override
+            protected void saveCallResult(List<MovieDbResponse> movieTvshowResponses) {
+                ArrayList<MovieTvshowEntity> movieTvshowList = new ArrayList<>();
+                for (MovieDbResponse response : movieTvshowResponses) {
+                    MovieTvshowEntity movieTvshow = new MovieTvshowEntity(response.getIDMovieDB(),
                             response.getTitle(),
                             response.getDateRelease(),
                             response.getRating(),
@@ -64,12 +74,75 @@ public class FakeMovieDbRepository implements MovieDbDataSource {
                             response.getOverview(),
                             response.getDuration(),
                             response.getUrl(),
-                            response.getImage());
+                            response.getImage(),
+                            false);
+                    movieTvshowList.add(movieTvshow);
                 }
+                localDataSource.insertMoviesTvshows(movieTvshowList);
             }
-            courseResults.postValue(course);
-        });
+        }.asLiveData();
+    }
 
-        return courseResults;
+    @Override
+    public LiveData<Resource<MovieTvshowEntity>> getDetailMovies(String checkId, String moviesID) {
+        return new NetworkBoundResource<MovieTvshowEntity, MovieDbResponse>(appExecutors){
+
+            @Override
+            protected LiveData<MovieTvshowEntity> loadFromDB() {
+                return localDataSource.getMovieTvshowById(moviesID);
+            }
+
+            @Override
+            protected Boolean shouldFetch(MovieTvshowEntity movietvshow) {
+                return (movietvshow == null);
+            }
+
+            @Override
+            protected LiveData<ApiResponse<MovieDbResponse>> createCall() {
+                return remoteDataSource.getDetailMovie(checkId, moviesID);
+            }
+
+            @Override
+            protected void saveCallResult(MovieDbResponse data) {
+                MovieTvshowEntity movieTvshowEntity = new MovieTvshowEntity(data.getIDMovieDB(),
+                        data.getTitle(),
+                        data.getDateRelease(),
+                        data.getRating(),
+                        data.getUserScore(),
+                        data.getGenre(),
+                        data.getOverview(),
+                        data.getDuration(),
+                        data.getUrl(),
+                        data.getImage(),
+                        false);
+                localDataSource.updateContent(movieTvshowEntity);
+
+            }
+        }.asLiveData();
+    }
+
+    @Override
+    public LiveData<PagedList<MovieTvshowEntity>> getFavoritedMovies() {
+        PagedList.Config config = new PagedList.Config.Builder()
+                .setEnablePlaceholders(false)
+                .setInitialLoadSizeHint(4)
+                .setPageSize(4)
+                .build();
+        return new LivePagedListBuilder<>(localDataSource.getFavoritedMovies(), config).build();
+    }
+
+    @Override
+    public LiveData<PagedList<MovieTvshowEntity>> getFavoritedTvshows() {
+        PagedList.Config config = new PagedList.Config.Builder()
+                .setEnablePlaceholders(false)
+                .setInitialLoadSizeHint(4)
+                .setPageSize(4)
+                .build();
+        return new LivePagedListBuilder<>(localDataSource.getFavoritedMovies(), config).build();
+    }
+
+    @Override
+    public void setMovieTvshowsFavorite(MovieTvshowEntity movietvshow, boolean state) {
+        appExecutors.diskIO().execute(() -> localDataSource.setMovieTvshowFavorite(movietvshow, state));
     }
 }

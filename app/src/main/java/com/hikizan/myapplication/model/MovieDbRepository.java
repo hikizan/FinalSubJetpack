@@ -43,30 +43,6 @@ public class MovieDbRepository implements MovieDbDataSource {
 
     @Override
     public LiveData<Resource<PagedList<MovieTvshowEntity>>> getMovies(String checkId) {
-        /*
-        MutableLiveData<List<MovieTvshowEntity>> mutableLiveData = new MutableLiveData<>();
-        remoteDataSource.getMovies(checkId, movieDbResponses -> {
-            ArrayList<MovieTvshowEntity> ListMovies = new ArrayList<>();
-            for (MovieDbResponse response : movieDbResponses) {
-                MovieTvshowEntity movie = new MovieTvshowEntity(
-                        response.getIDMovieDB(),
-                        response.getTitle(),
-                        response.getDateRelease(),
-                        response.getRating(),
-                        response.getUserScore(),
-                        response.getGenre(),
-                        response.getOverview(),
-                        response.getDuration(),
-                        response.getUrl(),
-                        response.getImage());
-
-                ListMovies.add(movie);
-            }
-            mutableLiveData.postValue(ListMovies);
-        });
-
-        return mutableLiveData;
-         */
 
         return new NetworkBoundResource<PagedList<MovieTvshowEntity>, List<MovieDbResponse>>(appExecutors){
 
@@ -119,30 +95,6 @@ public class MovieDbRepository implements MovieDbDataSource {
 
     @Override
     public LiveData<Resource<MovieTvshowEntity>> getDetailMovies(String checkId, String moviesID) {
-        /*
-        MutableLiveData<MovieTvshowEntity> mutableLiveData = new MutableLiveData<>();
-        remoteDataSource.getMovies(checkId, movieDbResponses -> {
-            MovieTvshowEntity movie = null;
-            for (MovieDbResponse response : movieDbResponses) {
-                if (response.getIDMovieDB().equals(moviesID)) {
-                    movie = new MovieTvshowEntity(
-                            response.getIDMovieDB(),
-                            response.getTitle(),
-                            response.getDateRelease(),
-                            response.getRating(),
-                            response.getUserScore(),
-                            response.getGenre(),
-                            response.getOverview(),
-                            response.getDuration(),
-                            response.getUrl(),
-                            response.getImage());
-                }
-            }
-            mutableLiveData.postValue(movie);
-        });
-
-        return mutableLiveData;
-         */
 
         return new NetworkBoundResource<MovieTvshowEntity, MovieDbResponse>(appExecutors){
 

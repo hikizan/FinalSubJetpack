@@ -3,10 +3,12 @@ package com.hikizan.myapplication.viewmodel;
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
+import androidx.paging.PagedList;
 
 import com.hikizan.myapplication.utils.DummyData;
 import com.hikizan.myapplication.model.MovieDbRepository;
 import com.hikizan.myapplication.model.source.local.entity.MovieTvshowEntity;
+import com.hikizan.myapplication.vo.Resource;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -31,10 +33,13 @@ public class MoviesViewModelTest {
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
     @Mock
-    private Observer<List<MovieTvshowEntity>> observer;
+    private Observer<Resource<PagedList<MovieTvshowEntity>>> observer;
 
     @Mock
     private MovieDbRepository movieDbRepository;
+
+    @Mock
+    private PagedList<MovieTvshowEntity> pagedList;
 
     @Before
     public void setUp() {
@@ -43,12 +48,13 @@ public class MoviesViewModelTest {
 
     @Test
     public void getData() {
-        ArrayList<MovieTvshowEntity> dummyMovies = DummyData.generateDummyMovies();
-        MutableLiveData<List<MovieTvshowEntity>> movies = new MutableLiveData<>();
+        Resource<PagedList<MovieTvshowEntity>> dummyMovies = Resource.success(pagedList);
+        when(dummyMovies.data.size()).thenReturn(10);
+        MutableLiveData<Resource<PagedList<MovieTvshowEntity>>> movies = new MutableLiveData<>();
         movies.setValue(dummyMovies);
 
         when(movieDbRepository.getMovies("0")).thenReturn(movies);
-        List<MovieTvshowEntity> ListMovies = viewModel.getData().getValue();
+        List<MovieTvshowEntity> ListMovies = viewModel.getData().getValue().data;
         verify(movieDbRepository).getMovies("0");
         assertNotNull(ListMovies);
         assertEquals(10, ListMovies.size());

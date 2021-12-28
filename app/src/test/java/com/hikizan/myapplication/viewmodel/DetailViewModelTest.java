@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer;
 import com.hikizan.myapplication.utils.DummyData;
 import com.hikizan.myapplication.model.MovieDbRepository;
 import com.hikizan.myapplication.model.source.local.entity.MovieTvshowEntity;
+import com.hikizan.myapplication.vo.Resource;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -30,7 +31,7 @@ public class DetailViewModelTest {
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
     @Mock
-    private Observer<MovieTvshowEntity> courseObserver;
+    private Observer<Resource<MovieTvshowEntity>> observer;
 
     @Mock
     private MovieDbRepository movieDbRepository;
@@ -43,10 +44,21 @@ public class DetailViewModelTest {
 
     @Test
     public void getDetailMovies() {
-        MutableLiveData<MovieTvshowEntity> movies = new MutableLiveData<>();
+        Resource<MovieTvshowEntity> dummyMovieDetail = Resource.success(DummyData.generateDummyDetail(dummyMovies, true));
+        MutableLiveData<Resource<MovieTvshowEntity>> movie = new MutableLiveData<>();
+        movie.setValue(dummyMovieDetail);
+
+        when(movieDbRepository.getDetailMovies("0", movieId)).thenReturn(movie);
+
+        viewModel.getDetailMovies("0").observeForever(observer);
+
+        verify(observer).onChanged(dummyMovieDetail);
+
+        /*
+        MutableLiveData<Resource<MovieTvshowEntity>> movies = new MutableLiveData<>();
         movies.setValue(dummyMovies);
         when(movieDbRepository.getDetailMovies("0", movieId)).thenReturn(movies);
-        MovieTvshowEntity movieTvshowEntity = viewModel.getDetailMovies("0").getValue();
+        MovieTvshowEntity movieTvshowEntity = viewModel.getDetailMovies("0").getValue().data;
         verify(movieDbRepository).getDetailMovies("0", movieId);
         assertNotNull(movies);
         assertEquals(dummyMovies.getIDMovieDB(), movieTvshowEntity.getIDMovieDB());
@@ -62,5 +74,6 @@ public class DetailViewModelTest {
 
         viewModel.getDetailMovies("0").observeForever(courseObserver);
         verify(courseObserver).onChanged(dummyMovies);
+         */
     }
 }

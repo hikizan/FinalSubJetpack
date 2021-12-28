@@ -46,9 +46,7 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.menu_favorite){
             Intent moveToFavoriteActivity = new Intent(this, FavoriteActivity.class);
             startActivity(moveToFavoriteActivity);
-            return true;
-        }else{
-            return true;
         }
+        return true;
     }
 }

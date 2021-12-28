@@ -57,25 +57,22 @@ public class DetailActivity extends AppCompatActivity {
             if (moviesID != null) {
                 char id = moviesID.charAt(0);
 
-                //progressBar.setVisibility(View.VISIBLE);
                 detailViewModel.setSelectedMovies(moviesID);
                 if (id == 'm') {
                     detailViewModel.getDetailMovies("0").observe(this, movie -> {
-                        /*
-                        progressBar.setVisibility(View.GONE);
-                        setData(movie);
-                         */
 
-                        if (movie != null){
-                            switch (movie.status){
+                        if (movie != null) {
+                            switch (movie.status) {
                                 case LOADING:
                                     progressBar.setVisibility(View.VISIBLE);
                                     break;
                                 case SUCCESS:
                                     progressBar.setVisibility(View.GONE);
-                                    setData(movie.data);
-                                    boolean state = movie.data.isFavorited();
-                                    setFabFavorite(state);
+                                    if (movie.data != null) {
+                                        setData(movie.data);
+                                        boolean state = movie.data.isFavorited();
+                                        setFabFavorite(state);
+                                    }
                                     break;
                                 case ERROR:
                                     progressBar.setVisibility(View.GONE);
@@ -86,21 +83,19 @@ public class DetailActivity extends AppCompatActivity {
                     });
                 } else {
                     detailViewModel.getDetailMovies("1").observe(this, movie -> {
-                        /*
-                        progressBar.setVisibility(View.GONE);
-                        setData(movie.data);
-                         */
 
-                        if (movie != null){
-                            switch (movie.status){
+                        if (movie != null) {
+                            switch (movie.status) {
                                 case LOADING:
                                     progressBar.setVisibility(View.VISIBLE);
                                     break;
                                 case SUCCESS:
                                     progressBar.setVisibility(View.GONE);
-                                    setData(movie.data);
-                                    boolean state = movie.data.isFavorited();
-                                    setFabFavorite(state);
+                                    if (movie.data != null) {
+                                        setData(movie.data);
+                                        boolean state = movie.data.isFavorited();
+                                        setFabFavorite(state);
+                                    }
                                     break;
                                 case ERROR:
                                     progressBar.setVisibility(View.GONE);
@@ -115,7 +110,7 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         fabFavorite.setOnClickListener(view -> {
-            if (view.getId() == R.id.fab_favorite){
+            if (view.getId() == R.id.fab_favorite) {
                 detailViewModel.setFavorite();
             }
         });
@@ -152,13 +147,13 @@ public class DetailActivity extends AppCompatActivity {
                 .into(img);
     }
 
-    private void setFabFavorite(boolean state){
+    private void setFabFavorite(boolean state) {
         Drawable isFavoriteFab = ContextCompat.getDrawable(this, R.drawable.ic_favorited);
         Drawable isNotFavoriteFab = ContextCompat.getDrawable(this, R.drawable.ic_favorite_border);
 
-        if (state){
+        if (state) {
             fabFavorite.setImageDrawable(isFavoriteFab);
-        }else{
+        } else {
             fabFavorite.setImageDrawable(isNotFavoriteFab);
         }
     }

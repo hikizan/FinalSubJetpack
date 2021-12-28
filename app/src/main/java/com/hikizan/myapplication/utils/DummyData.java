@@ -377,4 +377,21 @@ public class DummyData {
 
         return movies;
     }
+
+    public static MovieTvshowEntity generateDummyDetail(MovieTvshowEntity movies, boolean favorited) {
+
+        return new MovieTvshowEntity(
+                movies.getIDMovieDB(),
+                movies.getTitle(),
+                movies.getDateRelease(),
+                movies.getRating(),
+                movies.getUserScore(),
+                movies.getGenre(),
+                movies.getOverview(),
+                movies.getDuration(),
+                movies.getUrl(),
+                movies.getImage(),
+                favorited
+        );
+    }
 }

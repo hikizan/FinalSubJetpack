@@ -4,16 +4,16 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class MovieDbResponse implements Parcelable {
-    private String IDMovieDB;
-    private String title;
-    private String dateRelease;
-    private String rating;
-    private String userScore;
-    private String genre;
-    private String overview;
-    private String duration;
-    private String url;
-    private String image;
+    private final String IDMovieDB;
+    private final String title;
+    private final String dateRelease;
+    private final String rating;
+    private final String userScore;
+    private final String genre;
+    private final String overview;
+    private final String duration;
+    private final String url;
+    private final String image;
 
     public MovieDbResponse(String IDMovieDB, String title, String dateRelease, String rating, String userScore, String genre, String overview, String duration, String url, String image) {
         this.IDMovieDB = IDMovieDB;

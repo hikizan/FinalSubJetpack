@@ -14,8 +14,8 @@ import java.util.List;
 
 public class RemoteDataSource {
     private static RemoteDataSource INSTANCE;
-    private JsonHelper jsonHelper;
-    private Handler handler = new Handler(Looper.getMainLooper());
+    private final JsonHelper jsonHelper;
+    private final Handler handler = new Handler(Looper.getMainLooper());
     private final long SERVICE_LATENCY_IN_MILLIS = 2000;
 
     private RemoteDataSource(JsonHelper jsonHelper) {
@@ -34,7 +34,6 @@ public class RemoteDataSource {
         MutableLiveData<ApiResponse<List<MovieDbResponse>>> resultMovies = new MutableLiveData<>();
         handler.postDelayed(() -> {
             resultMovies.setValue(ApiResponse.success(jsonHelper.loadDetailMovies(checkId)));
-            //callback.onAllCoursesReceived(jsonHelper.loadDetailMovies(checkId));
             EspressoIdlingResource.decrement();
         }, SERVICE_LATENCY_IN_MILLIS);
         return resultMovies;
@@ -50,9 +49,6 @@ public class RemoteDataSource {
         return resultDetailMovie;
     }
 
-    public interface LoadMoviesCallback {
-        void onAllCoursesReceived(List<MovieDbResponse> movieDbResponses);
-    }
 }
 
 

@@ -14,16 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JsonHelper {
-    private Context context;
+    private final Context context;
 
     public JsonHelper(Context context) {
         this.context = context;
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    private String parsingFileToString(String fileName) {
+    private String parsingFileToString() {
         try {
-            InputStream is = context.getAssets().open(fileName);
+            InputStream is = context.getAssets().open("DbMovieResponses.json");
             byte[] buffer = new byte[is.available()];
             is.read(buffer);
             is.close();
@@ -37,7 +37,7 @@ public class JsonHelper {
     public List<MovieDbResponse> loadDetailMovies(String checkId) {
         ArrayList<MovieDbResponse> list = new ArrayList<>();
         try {
-            String json = parsingFileToString("DbMovieResponses.json");
+            String json = parsingFileToString();
             if (json != null) {
                 JSONObject responseObject = new JSONObject(json);
                 JSONArray listArray;
@@ -75,7 +75,7 @@ public class JsonHelper {
     public MovieDbResponse loadDetailContent(String checkId, String IDContent) {
         MovieDbResponse movieDbResponse = null;
         try {
-            String json = parsingFileToString("DbMovieResponses.json");
+            String json = parsingFileToString();
             if (json != null) {
                 JSONObject responseObject = new JSONObject(json);
                 JSONArray listArray;

@@ -24,7 +24,6 @@ import com.hikizan.myapplication.viewmodel.ViewModelFactory;
 
 public class TvshowsFragment extends Fragment implements MovieDbClickCallback {
 
-    private RecyclerView rvTvShows;
     private ProgressBar progressBar;
 
     public TvshowsFragment() {
@@ -33,7 +32,7 @@ public class TvshowsFragment extends Fragment implements MovieDbClickCallback {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        rvTvShows = view.findViewById(R.id.rv_tvshows);
+        RecyclerView rvTvShows = view.findViewById(R.id.rv_tvshows);
         progressBar = view.findViewById(R.id.progress_bar);
 
         if (getActivity() != null) {
@@ -44,14 +43,13 @@ public class TvshowsFragment extends Fragment implements MovieDbClickCallback {
 
 
             viewModel.getData().observe(getViewLifecycleOwner(), movies -> {
-                if (movies != null){
-                    switch (movies.status){
+                if (movies != null) {
+                    switch (movies.status) {
                         case LOADING:
                             progressBar.setVisibility(View.VISIBLE);
                             break;
                         case SUCCESS:
                             progressBar.setVisibility(View.GONE);
-                            //moviesAdapter.setMovies(movies.data);
                             moviesAdapter.submitList(movies.data);
                             moviesAdapter.notifyDataSetChanged();
                             break;
@@ -67,31 +65,6 @@ public class TvshowsFragment extends Fragment implements MovieDbClickCallback {
             rvTvShows.setHasFixedSize(true);
             rvTvShows.setAdapter(moviesAdapter);
         }
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        /*
-        if (getActivity() != null) {
-            ViewModelFactory factory = ViewModelFactory.getInstance(getActivity());
-            TvShowsViewModel viewModel = new ViewModelProvider(this, factory).get(TvShowsViewModel.class);
-
-            MovieDbAdapter moviesAdapter = new MovieDbAdapter(this);
-
-            progressBar.setVisibility(View.VISIBLE);
-            viewModel.getData().observe(getViewLifecycleOwner(), movies -> {
-                        progressBar.setVisibility(View.GONE);
-                        moviesAdapter.setMovies(movies);
-                        moviesAdapter.notifyDataSetChanged();
-                    }
-            );
-
-            rvTvShows.setLayoutManager(new LinearLayoutManager(getContext()));
-            rvTvShows.setHasFixedSize(true);
-            rvTvShows.setAdapter(moviesAdapter);
-        }
-         */
     }
 
     @Override

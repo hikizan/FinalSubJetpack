@@ -24,12 +24,6 @@ public class LocalDataSource {
         return INSTANCE;
     }
 
-    /*
-    public LiveData<List<MovieTvshowEntity>> getAllMovieTvshow() {
-        return mMovieDao.getAllMovieTvshow();
-    }
-     */
-
     public DataSource.Factory<Integer, MovieTvshowEntity> getListMovies() {
         return mMovieDao.getListMovie();
     }

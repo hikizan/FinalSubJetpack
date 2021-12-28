@@ -2,8 +2,6 @@ package com.hikizan.myapplication.dinjection;
 
 import android.content.Context;
 
-import androidx.room.Database;
-
 import com.hikizan.myapplication.model.source.local.LocalDataSource;
 import com.hikizan.myapplication.model.source.local.room.MovieRoomDatabase;
 import com.hikizan.myapplication.utils.AppExecutors;

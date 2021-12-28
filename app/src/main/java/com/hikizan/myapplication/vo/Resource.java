@@ -63,6 +63,7 @@ public class Resource<T> {
         return result;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Resource{" +

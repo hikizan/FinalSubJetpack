@@ -11,15 +11,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.paging.PagedListAdapter;
-import androidx.recyclerview.widget.AsyncDifferConfig;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.hikizan.myapplication.R;
 import com.hikizan.myapplication.callback.MovieDbClickCallback;
 import com.hikizan.myapplication.model.source.local.entity.MovieTvshowEntity;
-import com.hikizan.myapplication.R;
 import com.hikizan.myapplication.ui.detail.DetailActivity;
 
 import java.util.ArrayList;
@@ -65,35 +64,7 @@ public class MovieDbAdapter extends PagedListAdapter<MovieTvshowEntity, MovieDbA
     @Override
     public void onBindViewHolder(@NonNull MovieDbAdapter.MoviesViewHolder holder, int position) {
         holder.bind(getItem(position));
-
-        /*
-        MovieTvshowEntity movieTvshowEntity = listMovies.get(position);
-        holder.tvTitle.setText(movieTvshowEntity.getTitle());
-        holder.tvDateRelease.setText(movieTvshowEntity.getDateRelease());
-        holder.tvOverview.setText(movieTvshowEntity.getOverview());
-        holder.share.setOnClickListener(v -> callback.onShareClick(movieTvshowEntity));
-
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(holder.itemView.getContext(), DetailActivity.class);
-            intent.putExtra(DetailActivity.EX_MOVIES, movieTvshowEntity.getIDMovieDB());
-            holder.itemView.getContext().startActivity(intent);
-        });
-
-        int resId = holder.itemView.getResources().getIdentifier(movieTvshowEntity.getImage(), "drawable", holder.itemView.getContext().getPackageName());
-
-        Glide.with(holder.itemView.getContext())
-                .load(resId)
-                .apply(RequestOptions.placeholderOf(R.drawable.ic_baseline_refresh_24).error(R.drawable.ic_baseline_broken_image_24))
-                .into(holder.imgMovieDb);
-         */
     }
-
-    /*
-    @Override
-    public int getItemCount() {
-        return listMovies.size();
-    }
-     */
 
     class MoviesViewHolder extends RecyclerView.ViewHolder {
         final TextView tvTitle;
@@ -111,8 +82,7 @@ public class MovieDbAdapter extends PagedListAdapter<MovieTvshowEntity, MovieDbA
             imgMovieDb = itemView.findViewById(R.id.img_movies);
         }
 
-        public void bind(MovieTvshowEntity movieTvshowEntity){
-            //MovieTvshowEntity movieTvshowEntity = listMovies.get(position);
+        public void bind(MovieTvshowEntity movieTvshowEntity) {
             tvTitle.setText(movieTvshowEntity.getTitle());
             tvDateRelease.setText(movieTvshowEntity.getDateRelease());
             tvOverview.setText(movieTvshowEntity.getOverview());
